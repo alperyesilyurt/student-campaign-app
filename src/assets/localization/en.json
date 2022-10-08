@@ -1,0 +1,9 @@
+{
+  "hello": "hello world",
+  "navbar": {
+    "home": "Home",
+    "companies": "Companies",
+    "campaigns": "Campaigns",
+    "auth": "Login/Signup"
+  }
+}
