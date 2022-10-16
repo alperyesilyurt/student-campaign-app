@@ -1,5 +1,7 @@
 {
   "hello": "hello world",
+  "loading" : "Loading",
+  "companies" : "Companies",
   "navbar": {
     "home": "Home",
     "companies": "Companies",

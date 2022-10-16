@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-type Campaign = {
-  name?: String;
-  description?: String;
+export type Campaign = {
+  name?: string;
+  description?: string;
   campaignHeroImage: string;
-  campaignImages?: String[];
-  company: { name: String; logo: String };
+  campaignImages?: string[];
+  company: { name: string; logo: string };
   validUntil: string;
 };
 

@@ -1,3 +1,11 @@
 {
-  "hello": "hello world"
+  "hello": "hello world",
+  "loading" : "Yükleniyor",
+  "companies" :"Markalar",
+  "navbar": {
+    "home": "Ana Sayfa",
+    "companies": "Markalar",
+    "campaigns": "Kampanyalar",
+    "auth": "Giriş Yap / Kaydol"
+  }
 }
