@@ -1,19 +1,25 @@
-import React from "react";
-import styled from "styled-components";
+import CampaignCard from "@/components/CampaignCard";
+
 
 type Props = {};
 
-const CampaignCard = styled.div`
-  background-color: #00000013;
-  padding: 0.6rem 0.4rem;
-  border-radius: 0.25rem;
-  display: flex;
-  gap: 20px;
-`;
+
 const list = [
   {
-    img: "https://images.deliveryhero.io/image/fd-tr/campaign-assets/fadfab03-463c-11ed-b8b1-660950efa710/desktop_tile_TrvWPU.jpg?height=240&quality=95&width=560&",
-    companyName: "Pizza Hut",
+    campaignHeroImage: "https://images.deliveryhero.io/image/fd-tr/campaign-assets/fadfab03-463c-11ed-b8b1-660950efa710/desktop_tile_TrvWPU.jpg?height=240&quality=95&width=560&",
+    company:
+    {
+      name : "Pizza Hut",
+      logo : "https://images.deliveryhero.io/image/fd-tr/campaign-assets/fadfab03-463c-11ed-b8b1-660950efa710/desktop_tile_TrvWPU.jpg?height=240&quality=95&width=560&"
+    },
+    validUntil: "06 Aug 2020",
+  },  {
+    campaignHeroImage: "https://images.deliveryhero.io/image/fd-tr/campaign-assets/fadfab03-463c-11ed-b8b1-660950efa710/desktop_tile_TrvWPU.jpg?height=240&quality=95&width=560&",
+    company:
+    {
+      name : "Pizzann Hut",
+      logo : "https://images.deliveryhero.io/image/fd-tr/campaign-assets/fadfab03-463c-11ed-b8b1-660950efa710/desktop_tile_TrvWPU.jpg?height=240&quality=95&width=560&"
+    },
     validUntil: "06 Aug 2020",
   },
 ];
@@ -24,13 +30,7 @@ export default function index({}: Props) {
       <h1>Campaigns</h1>
       {list.map((campaign) => {
         return (
-          <CampaignCard>
-            <img width={200} src={campaign.img} />
-            <div>
-              <h3>{campaign.companyName}</h3>
-              <p>{campaign.validUntil}</p>
-            </div>
-          </CampaignCard>
+          <CampaignCard campaign={campaign} key={campaign.company.name}/>
         );
       })}
     </div>
