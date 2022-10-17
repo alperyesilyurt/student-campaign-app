@@ -21,9 +21,12 @@ export default function Campaigns() {
     <div>
       <h1>{t("companies")}</h1>
       {campaigns ? (
-        campaigns?.map((campaign) => {
+        campaigns?.map((campaign, index) => {
           return (
-            <CampaignCard campaign={campaign} key={campaign.company.name} />
+            <CampaignCard
+              campaign={campaign}
+              key={campaign.company.name + index}
+            />
           );
         })
       ) : (

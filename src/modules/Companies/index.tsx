@@ -1,14 +1,14 @@
-import React from "react";
-
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { services } from "@/common/services/services";
+import { saveTokenToStorage } from "./../../common/utils";
 
 const schema = z.object({
   email: z.string().email().min(2),
   password: z.string().min(6),
 });
-type FormSchemaType = z.infer<typeof schema>;
+export type LoginFormSchemaType = z.infer<typeof schema>;
 
 export default function Companies() {
   const {
@@ -16,19 +16,16 @@ export default function Companies() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormSchemaType>({
+  } = useForm<LoginFormSchemaType>({
     resolver: zodResolver(schema),
   });
 
-  const processForm: SubmitHandler<FormSchemaType> = async (
-    data: FormSchemaType
+  const processForm: SubmitHandler<LoginFormSchemaType> = async (
+    data: LoginFormSchemaType
   ) => {
-    await fetch("/api/form", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-
-    reset();
+    const response = await services.login(data);
+    const { user, token } = response?.data;
+    saveTokenToStorage(token);
   };
 
   return (
