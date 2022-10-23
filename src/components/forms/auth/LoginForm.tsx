@@ -34,14 +34,15 @@ type Props = {
 
 
 export default function LoginForm(props: Props) {
-    const {
+    const 
+    {
         register,
         handleSubmit,
         reset,
         formState: { errors },
     } = useForm<LoginFormSchemaType>({
         resolver: zodResolver(schema),
-    });
+    } );
 
     const processForm: SubmitHandler<LoginFormSchemaType> = async (
         data: LoginFormSchemaType
@@ -54,7 +55,7 @@ export default function LoginForm(props: Props) {
             onSubmit={handleSubmit(processForm)}
             style={{ display: "flex", flexDirection: "column", width: 300 }}
         >
-            <label htmlFor="email"> Name</label>
+            <label htmlFor="email"> E-mail</label>
             <input
                 {...register("email", { required: true })}
                 name="email"
@@ -62,7 +63,7 @@ export default function LoginForm(props: Props) {
             />
             {errors.email?.message && <span>{errors.email?.message}</span>}
             
-            <label htmlFor="email"> password</label>
+            <label htmlFor="email"> Password</label>
             <input
                 {...register("password", { required: true, minLength: 6 })}
                 name="password"
