@@ -7,12 +7,15 @@ import styled from "styled-components";
 import Button from "@/components/styled/button/Button";
 import LoginForm from "@/components/forms/auth/LoginForm";
 import { useState } from "react";
+import RegisterForm, { RegisterFormSchemaType } from "@/components/forms/auth/RegisterForm";
+
 
 const schema = z.object({
   email: z.string().email().min(2),
   password: z.string().min(6),
 });
 export type LoginFormSchemaType = z.infer<typeof schema>;
+
 
 const CardWrapper = styled.form`
   display: flex;
@@ -41,11 +44,17 @@ export default function Auth() {
     saveTokenToStorage(token);
   }
 
+  const registerHandler = async (data: RegisterFormSchemaType) => {
+    const response = await services.register(data);
+    const { user, token } = response?.data;
+    saveTokenToStorage(token);
+  }
+
   return (
     <div>
       <Button onClick={() => setAuthType(authType === 'login' ? 'register' : 'login')} type="secondary"> Switch Auth Type</Button>
       {authType === 'login' && <LoginForm handleLogin={loginHandler}></LoginForm>}
-      {authType === 'register' && <div>Register</div>}
+      {authType === 'register' && <RegisterForm handleRegister={registerHandler} ></RegisterForm>}
     </div>
   );
 }
