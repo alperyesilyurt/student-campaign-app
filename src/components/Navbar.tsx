@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import UniLifeLogo from "./icons/UniLifeLogo";
 
 type Props = {};
 
@@ -11,13 +12,15 @@ const NavbarWrapper = styled.div`
   border-radius: 10px;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   gap: 15px;
 `;
 
-export default function Navbar({}: Props) {
+export default function Navbar({ }: Props) {
   const { t } = useTranslation();
   return (
     <NavbarWrapper>
+      <UniLifeLogo />
       <Link to="/">{t("navbar.home")}</Link>
       <Link to="/companies">{t("navbar.companies")}</Link>
       <Link to="/campaigns">{t("navbar.campaigns")}</Link>
