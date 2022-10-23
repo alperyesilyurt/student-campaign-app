@@ -1,53 +1,31 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { services } from "@/common/services/services";
-import { saveTokenToStorage } from "./../../common/utils";
-
-const schema = z.object({
-  email: z.string().email().min(2),
-  password: z.string().min(6),
-});
-export type LoginFormSchemaType = z.infer<typeof schema>;
+import React, { useState } from "react";
+import reactLogo from "../../assets/react.svg";
 
 export default function Companies() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<LoginFormSchemaType>({
-    resolver: zodResolver(schema),
-  });
-
-  const processForm: SubmitHandler<LoginFormSchemaType> = async (
-    data: LoginFormSchemaType
-  ) => {
-    const response = await services.login(data);
-    const { user, token } = response?.data;
-    saveTokenToStorage(token);
-  };
+  const [count, setCount] = useState(0);
 
   return (
-    <form
-      onSubmit={handleSubmit(processForm)}
-      style={{ display: "flex", flexDirection: "column", width: 300 }}
-    >
-      <input
-        {...register("email", { required: true })}
-        name="email"
-        type="email"
-      />
-      {errors.email?.message && <span>{errors.email?.message}</span>}
-
-      <input
-        {...register("password", { required: true, minLength: 6 })}
-        name="password"
-        type="password"
-      />
-      {errors.password?.message && <span>{errors.password?.message}</span>}
-
-      <button>Submit</button>
-    </form>
+    <div>
+      <div className="App">
+        <div>
+          <a href="https://vitejs.dev" target="_blank">
+            <img src="/vite.svg" className="logo" alt="Vite logo" />
+          </a>
+          <a href="https://reactjs.org" target="_blank">
+            <img src={reactLogo} className="logo react" alt="React logo" />
+          </a>
+        </div>
+        <h1>Vite + React</h1>
+        <div className="card">
+          <button onClick={() => setCount((count) => count + 1)}>
+            count is {count}
+          </button>
+          <p>This page is gonna be auth page bro</p>
+        </div>
+        <p className="read-the-docs">
+          go to modules/Auth/index to delete these shits.
+        </p>
+      </div>
+    </div>
   );
 }
