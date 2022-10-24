@@ -1,14 +1,18 @@
 import { Route, Routes } from "react-router";
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 import "./App.css";
 import { ErrorBoundary } from "react-error-boundary";
 import Navbar from "./components/Navbar";
 import "@/common/i18n/i18n";
+import Signin from "@/modules/Auth";
 import { useTranslation } from "react-i18next";
 import Companies from "@/modules/Companies";
 import Campaigns from "@/modules/Campaigns";
 import Home from "@/modules/Home";
 import Login from "../src/modules/Auth/Login";
 import Register from "../src/modules/Auth/Register";
+
+const queryClient = new QueryClient()
 
 function ErrorFallback({
   error,
