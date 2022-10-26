@@ -9,6 +9,14 @@ export const borderRadiusSizes = {
   xlarge: "48px",
 };
 
+export const spacings = {
+  xsmall: "4px",
+  small: "8px",
+  medium: "16px",
+  large: "24px",
+  xlarge: "48px",
+};
+
 export const AuthBackground = styled.div`
   background: url(${authImage});
   min-width: fit-content;

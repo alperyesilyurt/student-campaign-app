@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import styled from "styled-components";
 import Button from "@/components/styled/button/Button";
+import Input from "@/components/styled/input/Input";
 
 const schema = z.object({
   username: z.string().min(5),
@@ -64,12 +65,7 @@ export default function RegisterForm(props: Props) {
           </HeadWrapper>
 
           <label htmlFor="email"> Email</label>
-        <input
-        style={{
-          padding: "16px 16px",
-          border: "1px solid #D9D9D9",
-          borderRadius: "10px",
-        }}
+        <Input
           {...register("email", { required: true })}
           name="email"
           type="email"
