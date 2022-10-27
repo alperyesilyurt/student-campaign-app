@@ -1,0 +1,15 @@
+.pwd-container {
+    position: relative;
+}
+
+.pwd-container input {
+    padding-right: 8.5em;
+}
+
+.pwd-container img {
+    cursor: pointer;
+    position: absolute;
+    width: 2rem;
+    right: 0.6rem;
+    top: 0.55rem;
+  }

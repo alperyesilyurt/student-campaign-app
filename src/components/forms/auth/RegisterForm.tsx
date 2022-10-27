@@ -1,9 +1,13 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import styled from "styled-components";
 import Button from "@/components/styled/button/Button";
 import Input from "@/components/styled/input/Input";
+import showPwdImg from "../../icons/show-password.svg";
+import hidePwdImg from "../../icons/hide-password.svg";
+import "./RegisterForm.css";
 
 const schema = z.object({
   username: z.string().min(5),
@@ -52,6 +56,9 @@ export default function RegisterForm(props: Props) {
     console.log("data", data);
   };
 
+  const [isRevealPassword, setIsRevealPassword] = useState(false);
+  const [isRevealConfirmPassword, setIsRevealConfirmPassword] = useState(false);
+
   return (
     <CardWrapper
       onSubmit={handleSubmit(processForm)}
@@ -78,23 +85,36 @@ export default function RegisterForm(props: Props) {
         placeholder="Your username here"
       />
       {errors.username?.message && <span>{errors.username?.message}</span>}
-
-      <label htmlFor="password"> Password</label>
-      <Input
-        {...register("password", { required: true })}
-        name="password"
-        type="password"
-        placeholder="Enter your password"
-      />
+      <label htmlFor="password">Password</label>
+      <div className="pwd-container">
+        <Input
+          {...register("password", { required: true })}
+          name="password"
+          type={isRevealPassword ? "text" : "password"}
+          placeholder="Enter your password"
+        />
+        <img
+          title={isRevealPassword ? "Hide password" : "Show password"}
+          src={isRevealPassword ? hidePwdImg : showPwdImg}
+          onClick={() => setIsRevealPassword((prevState) => !prevState)}
+        />
+      </div>
       {errors.password?.message && <span>{errors.password?.message}</span>}
 
-      <label htmlFor="confirmPassword"> Confirm Password</label>
-      <Input
-        {...register("confirmPassword", { required: true })}
-        name="confirmPassword"
-        type="password"
-        placeholder="Confirm your password"
-      />
+      <label htmlFor="confirmPassword">Confirm Password</label>
+      <div className="pwd-container">
+        <Input
+          {...register("confirmPassword", { required: true })}
+          name="confirmPassword"
+          type={isRevealConfirmPassword ? "text" : "password"}
+          placeholder="Confirm your password"
+        />
+        <img
+          title={isRevealConfirmPassword ? "Hide password" : "Show password"}
+          src={isRevealConfirmPassword ? hidePwdImg : showPwdImg}
+          onClick={() => setIsRevealConfirmPassword((prevState) => !prevState)}
+        />
+      </div>
       {errors.confirmPassword?.message && (
         <span>{errors.confirmPassword?.message}</span>
       )}
