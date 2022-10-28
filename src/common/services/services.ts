@@ -2,14 +2,13 @@ import { Campaign } from "@/components/CampaignCard";
 import { LoginFormSchemaType } from "../../components/forms/auth/LoginForm";
 import { RegisterFormSchemaType } from "../../components/forms/auth/RegisterForm";
 
-
-import {  ENDPOINTS } from "../constants/constants";
+import { ENDPOINTS } from "../constants/constants";
 import HttpClient from "./HttpClient";
 
 export const services = {
   getAllCampaigns: async () => {
     try {
-      const response = HttpClient.get<Campaign[]>(ENDPOINTS.campaigns);
+      const response = HttpClient.get(ENDPOINTS.campaigns);
       return response;
     } catch (error) {
       console.error(error);
