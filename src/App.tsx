@@ -4,8 +4,6 @@ import "./App.css";
 import { ErrorBoundary } from "react-error-boundary";
 import Navbar from "./components/Navbar";
 import "@/common/i18n/i18n";
-import Signin from "@/modules/Auth";
-import { useTranslation } from "react-i18next";
 import Companies from "@/modules/Companies";
 import Campaigns from "@/modules/Campaigns";
 import Home from "@/modules/Home";
@@ -32,14 +30,16 @@ function ErrorFallback({
 function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Navbar></Navbar>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/register" element={<Register />} />
-        <Route path="/companies" element={<Companies />} />
-        <Route path="/campaigns" element={<Campaigns />} />
-      </Routes>
+      <QueryClientProvider client={queryClient}>
+        <Navbar></Navbar>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/register" element={<Register />} />
+          <Route path="/companies" element={<Companies />} />
+          <Route path="/campaigns" element={<Campaigns />} />
+        </Routes>
+      </QueryClientProvider>
     </ErrorBoundary>
   );
 }
