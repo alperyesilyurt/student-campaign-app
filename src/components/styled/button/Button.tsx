@@ -70,23 +70,26 @@ export interface ButtonProps {
   className?: string;
   children?: string | React.ReactNode
   onClick?: () => void;
-  type: ButtonType;
+  variant: ButtonType;
   outlined?: boolean;
+  type?: "button" | "submit" | "reset" | undefined
 }
 
 const Button = (props: ButtonProps) => {
   const {
     onClick,
     children,
-    type,
+    variant,
     className,
-    outlined = false
+    outlined = false,
+    type
   } = props;
 
   return (
     <StyledButtonWrapper
-      className={`${type} ${className} ${outlined ? 'outlined' : ''}`}
+      className={`${variant} ${className} ${outlined ? 'outlined' : ''}`}
       onClick={onClick}
+      type={type}
     >
 
       {children}
