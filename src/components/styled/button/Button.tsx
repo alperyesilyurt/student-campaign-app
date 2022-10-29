@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import * as colors from '../colors'
-import { borderRadiusSizes } from '../constants';
+import * as colors from "../colors";
+import { borderRadiusSizes } from "../constants";
 
 /* export enum ButtonType {
   Primary = 'primary',
   Secondary = 'secondary',
   Link = 'link',
 } */
-export type ButtonType = 'primary' | 'secondary' | 'link';
+export type ButtonType = "primary" | "secondary" | "link";
 
 const StyledButtonWrapper = styled.button`
   display: flex;
@@ -25,7 +25,6 @@ const StyledButtonWrapper = styled.button`
   cursor: pointer;
   border-radius: ${borderRadiusSizes.medium};
   transition: all 0.2s ease-in-out;
-
 
   &.primary {
     color: ${colors.black};
@@ -56,23 +55,24 @@ const StyledButtonWrapper = styled.button`
   }
 
   &:hover {
-          filter: brightness(1.05);
+    filter: brightness(1.05);
   }
 
   &:focus,
   &:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+    outline: 4px auto -webkit-focus-ring-color;
   }
-
 `;
 
 export interface ButtonProps {
   className?: string;
-  children?: string | React.ReactNode
+  children?: string | React.ReactNode;
   onClick?: () => void;
   variant: ButtonType;
   outlined?: boolean;
   type?: "button" | "submit" | "reset" | undefined
+  fontWeight?: string;
+  boxSize?: string;
 }
 
 const Button = (props: ButtonProps) => {
@@ -82,16 +82,21 @@ const Button = (props: ButtonProps) => {
     variant,
     className,
     outlined = false,
-    type
+    fontWeight,
+    boxSize,
   } = props;
 
   return (
     <StyledButtonWrapper
       className={`${variant} ${className} ${outlined ? 'outlined' : ''}`}
+      className={`${type} ${className} ${outlined ? "outlined" : ""}`}
+      style={{
+        fontWeight: `${fontWeight}`,
+        width: `${boxSize}`,
+      }}
       onClick={onClick}
       type={type}
     >
-
       {children}
     </StyledButtonWrapper>
   );
