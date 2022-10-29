@@ -6,6 +6,7 @@ import { services } from "@/common/services/services";
 import styled from "styled-components";
 import { saveTokenToStorage } from "@/common/utils";
 import Button from "@/components/styled/button/Button";
+import Input from "@/components/styled/input/Input";
 
 const schema = z.object({
   email: z.string().email().min(2),
@@ -56,52 +57,35 @@ export default function LoginForm(props: Props) {
       onSubmit={handleSubmit(processForm)}
       style={{ display: "flex", flexDirection: "column", width: 300 }}
     >
-          <HeadWrapper>
-            <div>Welcome back!</div>
-            <div>Login your data to continue...</div>
-          </HeadWrapper>
+      <HeadWrapper>
+        <div>Welcome back!</div>
+        <div>Login your data to continue...</div>
+      </HeadWrapper>
       <label
         style={{
-        
           borderRadius: "10px",
         }}
         htmlFor="email"
       >
-        {" "}
         E-mail
       </label>
-      <input
-        style={{
-          padding: "16px 16px",
-          border: "1px solid #D9D9D9",
-          borderRadius: "10px",
-        }}
+      <Input
         {...register("email", { required: true })}
-        name="email"
         type="email"
         placeholder="Your email here"
-
-        
       />
 
       {errors.email?.message && <span>{errors.email?.message}</span>}
 
       <label htmlFor="email"> Password</label>
-      <input
-        style={{
-          padding: "16px 16px",
-          border: "1px solid #D9D9D9",
-          borderRadius: "10px",
-        }}
+      <Input
         {...register("password", { required: true, minLength: 6 })}
-        name="password"
         type="password"
         placeholder="Enter your password"
-
       />
       {errors.password?.message && <span>{errors.password?.message}</span>}
 
-      <Button type="primary"> Login</Button>
+      <Button variant="primary"> Login</Button>
     </CardWrapper>
   );
 }
