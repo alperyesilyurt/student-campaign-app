@@ -1,17 +1,21 @@
-import React from 'react'
-import styled from 'styled-components'
-import { borderRadiusSizes, spacings } from '../constants'
-import * as colors from '../colors'
-type Props = any
+import React, { forwardRef, HTMLInputTypeAttribute, memo } from "react";
+import styled from "styled-components";
+import { borderRadiusSizes, spacings } from "../constants";
+import * as colors from "../colors";
 
 const StyledInputWrapper = styled.input`
-    padding: ${spacings.medium} ${spacings.medium};
-    border: 1px solid ${colors.gray1};
-    border-radius: ${borderRadiusSizes.medium};
-`
+  padding: ${spacings.medium} ${spacings.medium};
+  border: 1px solid ${colors.gray1};
+  border-radius: ${borderRadiusSizes.medium};
+`;
 
-export default function Input(props: Props) {
-    return (
-        <StyledInputWrapper {...props}></StyledInputWrapper>
-    )
-}
+type Props = {
+  type?: string;
+  placeholder?: string;
+  value?: string;
+};
+
+const Input = forwardRef<HTMLInputElement, Props>(({ ...otherProps }, ref) => {
+  return <StyledInputWrapper {...otherProps} ref={ref}></StyledInputWrapper>;
+});
+export default memo(Input);
