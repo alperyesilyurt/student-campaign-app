@@ -1,6 +1,8 @@
 import { useGetCampaigns } from "@/common/hooks/use-get-campaigns";
 import CampaignCard from "@/components/CampaignCard";
 import { useTranslation } from "react-i18next";
+import './index.css';
+import { AuthBackground } from "@/components/styled/constants";
 
 export default function Campaigns() {
   const { t } = useTranslation();
@@ -10,6 +12,7 @@ export default function Campaigns() {
     <div>
       <h1>{t("companies")}</h1>
       <h2>{isCampaignsFetched ? 'fetched' : 'NOT fetched'}</h2>
+      <div className="campaign-container" >
       {isCampaignsFetched ? (
         campaignResponseData?.map((campaign, index) => {
           return (
@@ -22,6 +25,7 @@ export default function Campaigns() {
       ) : (
         <h5>{t("loading")}</h5>
       )}
+      </div>
     </div>
   );
 }

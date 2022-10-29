@@ -9,6 +9,19 @@ export const borderRadiusSizes = {
   xlarge: "48px",
 };
 
+export const fontWeights = {
+  light: "300",
+  regular: "400",
+  semibold: "600",
+  bold: "700",
+};
+
+export const fontFamilies = {
+  font1: "Montserrat",
+  font2: "Nunito",
+  font3: "Poppins",
+};
+
 export const spacings = {
   xsmall: "4px",
   small: "8px",
@@ -16,6 +29,14 @@ export const spacings = {
   large: "24px",
   xlarge: "48px",
 };
+
+export const boxSizes = {
+  xsmall: "25px",
+  small: "50px",
+  medium: "100px",
+  large: "150px",
+  xlarge: "200px",
+}
 
 export const AuthBackground = styled.div`
   background: url(${authImage});
