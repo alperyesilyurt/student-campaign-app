@@ -70,7 +70,7 @@ export interface ButtonProps {
   onClick?: () => void;
   variant: ButtonType;
   outlined?: boolean;
-  type?: "button" | "submit" | "reset" | undefined
+  type?: "button" | "submit" | "reset" | undefined;
   fontWeight?: string;
   boxSize?: string;
 }
@@ -84,12 +84,12 @@ const Button = (props: ButtonProps) => {
     outlined = false,
     fontWeight,
     boxSize,
+    type,
   } = props;
 
   return (
     <StyledButtonWrapper
-      className={`${variant} ${className} ${outlined ? 'outlined' : ''}`}
-      className={`${type} ${className} ${outlined ? "outlined" : ""}`}
+      className={`${variant} ${className} ${outlined ? "outlined" : ""}`}
       style={{
         fontWeight: `${fontWeight}`,
         width: `${boxSize}`,

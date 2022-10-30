@@ -17,9 +17,9 @@ export const fontWeights = {
 };
 
 export const fontFamilies = {
-  font1: "Montserrat",
-  font2: "Nunito",
-  font3: "Poppins",
+  montserrat: "Montserrat",
+  nunito: "Nunito",
+  poppins: "Poppins",
 };
 
 export const spacings = {
@@ -36,7 +36,7 @@ export const boxSizes = {
   medium: "100px",
   large: "150px",
   xlarge: "200px",
-}
+};
 
 export const AuthBackground = styled.div`
   background: url(${authImage});

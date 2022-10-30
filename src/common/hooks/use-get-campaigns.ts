@@ -2,6 +2,7 @@ import { Campaign } from "@/components/CampaignCard";
 import { useQuery } from "@tanstack/react-query";
 import { services } from "../services/services";
 
+/* TODO: fix type error */
 export const useGetCampaigns = () => {
   const {
     isLoading: isCampaignsLoading,

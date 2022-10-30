@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Button from "./styled/button/Button";
 import { fontWeights, boxSizes, fontFamilies } from "./styled/constants";
+import * as colors from "./styled/colors";
 
 export type Campaign = {
   name?: string;
@@ -16,19 +17,18 @@ type Props = {
   campaign: Campaign;
 };
 const CampaignCardWrapper = styled.div`
-  font-family: ${fontFamilies.font3}, sans-serif;
-  background-color: rgba(255, 255, 255, 1);
+  font-family: ${fontFamilies.poppins}, sans-serif;
+  background-color: ${colors.white};
   padding: 22px;
   max-width: 332px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-
 `;
 
 const CampaignCardIndex = styled.div`
-  background-color: rgba(255, 255, 255, 1);
+  background-color: ${colors.white};
   max-width: 239px;
   margin-top: -30px;
   display: flex;
@@ -47,7 +47,7 @@ function CampaignCard(props: Props) {
         <h3>{campaign.company.name}</h3>
         <p>{campaign.description}</p>
         <Button
-          type="primary"
+          variant="primary"
           outlined
           fontWeight={fontWeights.bold}
           boxSize={boxSizes.xlarge}
