@@ -1,3 +1,4 @@
+import { builtinModules } from "module";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
@@ -7,27 +8,43 @@ import UniLifeLogo from "./icons/UniLifeLogo";
 type Props = {};
 
 const NavbarWrapper = styled.div`
-  padding: 1em 0.6em;
-  background: #0000001c;
+  padding: 1.2em 0.8em;
+  background: #ffffff;
+  box-shadow: 0px 4px 10px rgba(169, 169, 169, 0.1);
   border-radius: 10px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  gap: 15px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 22px;
 `;
+const linkStyle = {
+  textDecoration: "none",
+  color: "#3D3D3D",
+};
+const linkStyleLogin = {
+  textDecoration: "none",
+  color: "#3D3D3D",
+  border: "2.5px solid #7CF2B8",
+  borderRadius: "10px",
+  padding: "16px 46px"
+};
 
-export default function Navbar({ }: Props) {
 
+export default function Navbar({}: Props) {
   const location = useLocation();
 
-/*   console.log('hash', location.hash);
+  /*   console.log('hash', location.hash);
   console.log('pathname', location.pathname);
   console.log('search', location.search); */
 
-  if(location.pathname==="/auth/register"){
+  if (location.pathname === "/auth/register") {
     return null;
   }
-  if(location.pathname==="/auth/login"){
+  if (location.pathname === "/auth/login") {
     return null;
   }
 
@@ -35,12 +52,22 @@ export default function Navbar({ }: Props) {
   return (
     <NavbarWrapper>
       <UniLifeLogo />
-      <Link to="/">{t("navbar.home")}</Link>
-      <Link to="/companies">{t("navbar.companies")}</Link>
-      <Link to="/campaigns">{t("navbar.campaigns")}</Link>
-      <Link to="/auth/login">{t("navbar.auth.login")}</Link>
-      <Link to="/auth/register">{t("navbar.auth.register")}</Link>
 
+      <Link style={linkStyle} to="/">
+        {t("navbar.home")}
+      </Link>
+      <Link style={linkStyle} to="/companies">
+        {t("navbar.companies")}
+      </Link>
+      <Link style={linkStyle} to="/campaigns">
+        {t("navbar.campaigns")}
+      </Link>
+      <Link style={linkStyleLogin} to="/auth/login">
+        Login
+      </Link>
+      <Link style={linkStyle} to="/auth/register">
+        Register
+      </Link>
     </NavbarWrapper>
   );
 }
