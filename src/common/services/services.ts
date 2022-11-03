@@ -14,6 +14,14 @@ export const services = {
       console.error(error);
     }
   },
+  getAllCampaignsFeatured: async () => {
+    try {
+      const response = HttpClient.get(ENDPOINTS.campaignsFeatured);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  },
   login: async (loginForm: LoginFormSchemaType) => {
     try {
       const response = HttpClient.post(ENDPOINTS.auth.login, loginForm);
