@@ -6,9 +6,11 @@ import Navbar from "./components/Navbar";
 import "@/common/i18n/i18n";
 import Companies from "@/modules/Companies";
 import Campaigns from "@/modules/Campaigns";
+import CampaignDetail from "@/modules/CampaignDetail";
 import Home from "@/modules/Home";
 import Login from "../src/modules/Auth/Login";
 import Register from "../src/modules/Auth/Register";
+
 
 const queryClient = new QueryClient()
 
@@ -38,6 +40,7 @@ function App() {
           <Route path="/auth/register" element={<Register />} />
           <Route path="/companies" element={<Companies />} />
           <Route path="/campaigns" element={<Campaigns />} />
+          <Route path="/campaigns-detail" element={<CampaignDetail />} />
         </Routes>
       </QueryClientProvider>
     </ErrorBoundary>
