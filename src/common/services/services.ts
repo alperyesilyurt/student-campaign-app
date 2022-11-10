@@ -7,12 +7,8 @@ import HttpClient from "./HttpClient";
 
 export const services = {
   getAllCampaigns: async () => {
-    try {
-      const response = HttpClient.get(ENDPOINTS.campaigns);
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
+    const response = HttpClient.get(ENDPOINTS.campaigns);
+    return response;
   },
   login: async (loginForm: LoginFormSchemaType) => {
     try {
