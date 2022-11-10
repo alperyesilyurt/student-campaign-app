@@ -1,5 +1,9 @@
+import { useGetSingleCampaign } from "@/common/hooks/use-get-campaigns";
+import { services } from "@/common/services/services";
 import CampaignDetailCard from "@/components/CampaignDetailCard";
 import Button from "@/components/styled/button/Button";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import CmpSvg from "../../assets/vectors/campaign.svg";
 
@@ -57,34 +61,56 @@ const CompanyLogoImage = styled.img`
     width: 130px;
     height: 130px;
     margin-top: -120px;
-
   }
 `;
-export default function CampaignDetail() {
+
+type campaignDetailProps = {
+  campaignID: string;
+};
+
+export default function CampaignDetail(props: campaignDetailProps) {
+  const { campaignID } = props;
+
+  // const {
+  //   isSingleCampaignsLoading,
+  //   error,
+  //   singleCampaignResponseData,
+  //   isSingleCampaignFetched,
+  // } = useGetSingleCampaign({ id: "6347eae1ee08d70a8c06e408" }); // To-do id value should be change with campaignID
+
+  const singleCampaign = useGetSingleCampaign({
+    id: "6347eae1ee08d70a8c06e408",
+  }); // To-do id value should be change with campaignID
+
+  const { t } = useTranslation();
+
   return (
     <Page>
-      <img
-        src={CmpSvg}
-        style={{ width: "90%", objectFit: "contain", padding: "30px" }}
-      />
-      <CompanyLogoImage src={CmpSvg} />
-      <CampaignDescription>
-        The leading fashion destination for stylish 20-somethings, ASOS offers a
-        curated edit of 85,000 items, sourced from both in-house labels and the
-        best global brands.
-      </CampaignDescription>
-      <CouponArea>
-        <GetCodeCardHeadline>
-          %15 <br /> student discount
-        </GetCodeCardHeadline>
-        <Button size="large" type="black">
-          Get Code
-        </Button>
-      </CouponArea>
-      <CampaignDescription>
-        Unlock 15% student discount at ASOS with UniLife. Use our ASOS student
-        discount code at the checkout to enjoy 15% off your order.
-      </CampaignDescription>
+      {singleCampaign.isFetched ? (
+        <>
+          <img
+            src={singleCampaign.data?.data.campaignHeroImage}
+            style={{ width: "90%", objectFit: "contain", padding: "30px" }}
+          />
+          <CompanyLogoImage src={singleCampaign.data?.data.company.logo} />
+          <CampaignDescription>
+            {singleCampaign.data?.data.description}
+          </CampaignDescription>
+          <CouponArea>
+            <GetCodeCardHeadline>
+              %15 <br /> student discount
+            </GetCodeCardHeadline>
+            <Button size="large" type="black">
+              Get Code
+            </Button>
+          </CouponArea>
+          <CampaignDescription>
+            {singleCampaign.data?.data.description}
+          </CampaignDescription>
+        </>
+      ) : (
+        <h5>{t("loading")}</h5>
+      )}
     </Page>
   );
 }
