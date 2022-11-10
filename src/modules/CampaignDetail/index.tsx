@@ -71,13 +71,6 @@ type campaignDetailProps = {
 export default function CampaignDetail(props: campaignDetailProps) {
   const { campaignID } = props;
 
-  // const {
-  //   isSingleCampaignsLoading,
-  //   error,
-  //   singleCampaignResponseData,
-  //   isSingleCampaignFetched,
-  // } = useGetSingleCampaign({ id: "6347eae1ee08d70a8c06e408" }); // To-do id value should be change with campaignID
-
   const singleCampaign = useGetSingleCampaign({
     id: "6347eae1ee08d70a8c06e408",
   }); // To-do id value should be change with campaignID

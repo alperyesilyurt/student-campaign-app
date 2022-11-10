@@ -29,23 +29,3 @@ export const useGetSingleCampaign = ({ id }: { id: string }) => {
 
   return getSingleCampaigns;
 };
-// export const useGetSingleCampaign = ({ id }: { id: string }) => {
-//   const {
-//     isLoading: isSingleCampaignsLoading,
-//     error,
-//     data: singleCampaignResponseData,
-//     isFetched: isSingleCampaignFetched,
-//   } = useQuery(
-//     ["getSingleCampaign"],
-//     () => services.getSingleCampaignDetail({ id: id }),
-//     {
-//       select: (data: { data: Campaign; message: string }) => data?.data,
-//     }
-//   );
-//   return {
-//     isSingleCampaignsLoading,
-//     error,
-//     singleCampaignResponseData,
-//     isSingleCampaignFetched,
-//   };
-// };
