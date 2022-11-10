@@ -9,12 +9,33 @@ export const borderRadiusSizes = {
   xlarge: "48px",
 };
 
+export const fontWeights = {
+  light: "300",
+  regular: "400",
+  semibold: "600",
+  bold: "700",
+};
+
+export const fontFamilies = {
+  montserrat: "Montserrat",
+  nunito: "Nunito",
+  poppins: "Poppins",
+};
+
 export const spacings = {
   xsmall: "4px",
   small: "8px",
   medium: "16px",
   large: "24px",
   xlarge: "48px",
+};
+
+export const boxSizes = {
+  xsmall: "25px",
+  small: "50px",
+  medium: "100px",
+  large: "150px",
+  xlarge: "200px",
 };
 
 export const AuthBackground = styled.div`
@@ -25,3 +46,11 @@ export const AuthBackground = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
 `;
+
+export const maxWidth = {
+  xsmall: "166px",
+  small: "240px",
+  medium: "332px",
+  large: "480px",
+  xlarge: "664px",
+};
