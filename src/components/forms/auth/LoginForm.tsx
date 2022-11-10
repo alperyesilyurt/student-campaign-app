@@ -1,17 +1,24 @@
-import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { services } from "@/common/services/services";
 import styled from "styled-components";
-import { saveTokenToStorage } from "@/common/utils";
-import Button from "@/components/styled/button/Button";
-import Input from "@/components/styled/input/Input";
+
+import {
+  Button,
+  FormErrorMessage,
+  Input,
+  FormLabel,
+  FormControl,
+  Collapse,
+  Box,
+} from "@chakra-ui/react";
+import { useEffect } from "react";
 
 const schema = z.object({
   email: z.string().email().min(2),
   password: z.string().min(6),
 });
+
 export type LoginFormSchemaType = z.infer<typeof schema>;
 
 const CardWrapper = styled.form`
@@ -41,7 +48,7 @@ export default function LoginForm(props: Props) {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginFormSchemaType>({
     resolver: zodResolver(schema),
   });
@@ -52,6 +59,10 @@ export default function LoginForm(props: Props) {
     props.handleLogin(data);
   };
 
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
+
   return (
     <CardWrapper
       onSubmit={handleSubmit(processForm)}
@@ -61,31 +72,47 @@ export default function LoginForm(props: Props) {
         <div>Welcome back!</div>
         <div>Login your data to continue...</div>
       </HeadWrapper>
-      <label
-        style={{
-          borderRadius: "10px",
-        }}
-        htmlFor="email"
+
+      <FormControl isInvalid={Boolean(errors.email)}>
+        <FormLabel htmlFor="email">Email</FormLabel>
+        <Input
+          {...register("email", { required: true })}
+          type="email"
+          placeholder="Your email here"
+        />
+        <Collapse in={errors.email?.message ? true : false} animateOpacity>
+          <Box fontSize={"sm"} textColor={"red.500"}>
+            <FormErrorMessage>
+              {errors.email && errors.email.message}
+            </FormErrorMessage>
+          </Box>
+        </Collapse>
+      </FormControl>
+
+      <FormControl isInvalid={Boolean(errors.password)}>
+        <FormLabel htmlFor="password">Password</FormLabel>
+        <Input
+          {...register("password", { required: true, minLength: 6 })}
+          type="password"
+          placeholder="Enter your password"
+        />
+        <Collapse in={errors.password?.message ? true : false} animateOpacity>
+          <Box fontSize={"sm"} textColor={"red.500"}>
+            <FormErrorMessage>
+              {errors.password && errors.password.message}
+            </FormErrorMessage>
+          </Box>
+        </Collapse>
+      </FormControl>
+
+      <Button
+        colorScheme="purple"
+        size="lg"
+        type="submit"
+        isLoading={isSubmitting}
       >
-        E-mail
-      </label>
-      <Input
-        {...register("email", { required: true })}
-        type="email"
-        placeholder="Your email here"
-      />
-
-      {errors.email?.message && <span>{errors.email?.message}</span>}
-
-      <label htmlFor="email"> Password</label>
-      <Input
-        {...register("password", { required: true, minLength: 6 })}
-        type="password"
-        placeholder="Enter your password"
-      />
-      {errors.password?.message && <span>{errors.password?.message}</span>}
-
-      <Button variant="primary"> Login</Button>
+        Login
+      </Button>
     </CardWrapper>
   );
 }

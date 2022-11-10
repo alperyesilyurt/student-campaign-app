@@ -10,7 +10,7 @@ export const useGetAllCampaigns = () => {
     },
     {
       select: (data: any): { data: Campaign[] } => data,
-    },
+    }
   );
 
   return getAllCampaigns;
