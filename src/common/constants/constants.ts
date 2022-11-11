@@ -1,4 +1,5 @@
-export const BASE_DEV_URL = "http://localhost:3000/";
+export const BASE_LOCAL_URL = "http://localhost:3000/";
+export const BASE_DEV_URL = "https://dev.unilifeapp.net/";
 
 export const ENDPOINTS = {
   campaigns: "v1/campaigns",
