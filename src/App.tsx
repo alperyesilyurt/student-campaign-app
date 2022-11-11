@@ -10,6 +10,7 @@ import CampaignDetail from "@/modules/CampaignDetail";
 import Home from "@/modules/Home";
 import Login from "../src/modules/Auth/Login";
 import Register from "../src/modules/Auth/Register";
+import Footer from "@/components/Footer";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ function App() {
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/campaign/:id" element={<CampaignDetail />} />
         </Routes>
+        <Footer></Footer>
       </QueryClientProvider>
     </ErrorBoundary>
   );
