@@ -10,22 +10,8 @@ export const useGetAllCampaigns = () => {
     },
     {
       select: (data: any): { data: Campaign[] } => data,
-    }
+    },
   );
 
   return getAllCampaigns;
-};
-
-export const useGetSingleCampaign = ({ id }: { id: string }) => {
-  const getSingleCampaigns = useQuery(
-    ["getSingleCampaign"],
-    () => {
-      return services.getSingleCampaignDetail({ id: id });
-    },
-    {
-      select: (data: any): { data: Campaign } => data,
-    }
-  );
-
-  return getSingleCampaigns;
 };

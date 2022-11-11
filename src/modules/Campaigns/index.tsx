@@ -9,9 +9,11 @@ export default function Campaigns() {
 
   return (
     <div>
-      <h1>{t("companies")}</h1>
-      <h2>{campaigns.isFetched ? "fetched" : "NOT fetched"}</h2>
-      {campaigns.isFetched ? <CampaignsList /> : <h5>{t("loading")}</h5>}
+      {campaigns.isFetched ? (
+        <CampaignsList campaigns={campaigns} />
+      ) : (
+        <h5>{t("loading")}</h5>
+      )}
     </div>
   );
 }
@@ -22,9 +24,13 @@ const StyledListWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
 `;
-const CampaignsList = () => {
-  const campaigns = useGetAllCampaigns();
 
+type CampaignListProps = {
+  campaigns: ReturnType<typeof useGetAllCampaigns>;
+};
+
+const CampaignsList = (props: CampaignListProps) => {
+  const { campaigns } = props;
   return (
     <StyledListWrapper>
       {campaigns.data?.data?.map((campaign, index) => {

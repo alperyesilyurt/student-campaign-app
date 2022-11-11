@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router";
-import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./App.css";
 import { ErrorBoundary } from "react-error-boundary";
 import Navbar from "./components/Navbar";
@@ -11,8 +11,7 @@ import Home from "@/modules/Home";
 import Login from "../src/modules/Auth/Login";
 import Register from "../src/modules/Auth/Register";
 
-
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function ErrorFallback({
   error,
@@ -40,7 +39,7 @@ function App() {
           <Route path="/auth/register" element={<Register />} />
           <Route path="/companies" element={<Companies />} />
           <Route path="/campaigns" element={<Campaigns />} />
-          <Route path="/campaigns-detail" element={<CampaignDetail />} />
+          <Route path="/campaign/:id" element={<CampaignDetail />} />
         </Routes>
       </QueryClientProvider>
     </ErrorBoundary>

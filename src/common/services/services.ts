@@ -10,15 +10,9 @@ export const services = {
     const response = HttpClient.get(ENDPOINTS.campaigns);
     return response;
   },
-  getSingleCampaignDetail: async (value: { id: string }) => {
-    try {
-      const response = HttpClient.get(
-        `${ENDPOINTS.singleCampaignDetail}/${value.id}`
-      );
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
+  getCampaignByID: async (id: string) => {
+    const response = HttpClient.get(`${ENDPOINTS.singleCampaignDetail}/${id}`);
+    return response;
   },
   login: async (loginForm: LoginFormSchemaType) => {
     try {

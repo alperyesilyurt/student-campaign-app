@@ -12,8 +12,10 @@ import {
 import * as colors from "./styled/colors";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { useNavigate } from "react-router-dom";
 
 export type Campaign = {
+  id: string;
   name?: string;
   description?: string;
   campaignHeroImage: string;
@@ -60,6 +62,7 @@ const DescriptionContainer = styled.div`
 
 function CampaignCard(props: Props) {
   const { campaign } = props;
+  const navigate = useNavigate();
 
   return (
     <CampaignCardWrapper>
@@ -86,6 +89,7 @@ function CampaignCard(props: Props) {
         outlined
         fontWeight={fontWeights.bold}
         boxSize={boxSizes.xlarge}
+        onClick={() => navigate(`/campaign/${campaign._id}`)}
       >
         Use
       </Button>

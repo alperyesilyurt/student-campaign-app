@@ -1,11 +1,9 @@
-import { useGetSingleCampaign } from "@/common/hooks/use-get-campaigns";
-import { services } from "@/common/services/services";
-import CampaignDetailCard from "@/components/CampaignDetailCard";
+import ScrollToTop from "@/common/hooks/scroll-to-top";
+import { useGetCampaignByID } from "@/common/hooks/use-get-campaign";
 import Button from "@/components/styled/button/Button";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import CmpSvg from "../../assets/vectors/campaign.svg";
 
 const Page = styled.div`
   display: flex;
@@ -65,21 +63,31 @@ const CompanyLogoImage = styled.img`
 `;
 
 type campaignDetailProps = {
-  campaignID: string;
+  campaignID?: string;
 };
 
 export default function CampaignDetail(props: campaignDetailProps) {
   const { campaignID } = props;
+  const params = useParams();
 
-  const singleCampaign = useGetSingleCampaign({
-    id: "6347eae1ee08d70a8c06e408",
-  }); // To-do id value should be change with campaignID
+  const campaignIDToFetch = params.id || campaignID;
+
+  if (!campaignIDToFetch) {
+    return <div>Invalid campaign ID</div>;
+  }
+
+  const singleCampaign = useGetCampaignByID(campaignIDToFetch);
 
   const { t } = useTranslation();
 
+  if (singleCampaign.isLoading) {
+    return <>Loading</>;
+  }
+
   return (
     <Page>
-      {singleCampaign.isFetched ? (
+      <ScrollToTop />
+      {singleCampaign.isSuccess ? (
         <>
           <img
             src={singleCampaign.data?.data.campaignHeroImage}
@@ -102,7 +110,7 @@ export default function CampaignDetail(props: campaignDetailProps) {
           </CampaignDescription>
         </>
       ) : (
-        <h5>{t("loading")}</h5>
+        <h5>{t("errors.campaignDetail.fetchError")}</h5>
       )}
     </Page>
   );
