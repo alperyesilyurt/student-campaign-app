@@ -21,65 +21,78 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  margin-left: 20px;
+  margin-right: 20px;
+`;
+const BigWrapper = styled.div`
+  background: #000000;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export default function Footer({}: Props) {
   return (
-    <FooterWrapper>
-      <Wrapper>
-        <UniLifeLogo_2 />
-        <Button variant="link" size="small">
-          Make your university life a lot cheaper and funnier
-        </Button>
-      </Wrapper>
-      <Wrapper>
-        <Button variant="link" size="small">
-          Popular Categories
-        </Button>
-        <Button variant="link" size="small">
-          Food
-        </Button>
-        <Button variant="link" size="small">
-          Fashion
-        </Button>
-        <Button variant="link" size="small">
-          Tech
-        </Button>
-        <Button variant="link" size="small">
-          Health
-        </Button>
-        <Button variant="link" size="small">
-          Sports
-        </Button>
-        <Button variant="link" size="small">
-          All
-        </Button>
-      </Wrapper>
-      <Wrapper>
-        <Button variant="link" size="small">
-          Corporate
-        </Button>
-        <Button variant="link" size="small">
-          About UniLife
-        </Button>
-        <Button variant="link" size="small">
-          Contact
-        </Button>
-        <Button variant="link" size="small">
-          Terms of Service
-        </Button>
-        <Button variant="link" size="small">
-          Cookie Policy
-        </Button>
-        <Button variant="link" size="small">
-          Privacy Policy
-        </Button>
-      </Wrapper>
-      <Wrapper>
-        <Button variant="link" size="small">
-          Follow us
-        </Button>
-      </Wrapper>
-    </FooterWrapper>
+    <BigWrapper>
+      <FooterWrapper>
+        <Wrapper>
+          <UniLifeLogo_2 />
+          <Button variant="link" size="small" >
+            Make your university life a lot cheaper and funnier
+          </Button>
+        </Wrapper>
+        <Wrapper>
+          <Button variant="link" size="small">
+            Popular Categories
+          </Button>
+          <Button variant="link" size="small">
+            Food
+          </Button>
+          <Button variant="link" size="small">
+            Fashion
+          </Button>
+          <Button variant="link" size="small">
+            Tech
+          </Button>
+          <Button variant="link" size="small">
+            Health
+          </Button>
+          <Button variant="link" size="small">
+            Sports
+          </Button>
+          <Button variant="link" size="small">
+            All
+          </Button>
+        </Wrapper>
+        <Wrapper>
+          <Button variant="link" size="small">
+            Corporate
+          </Button>
+          <Button variant="link" size="small">
+            About UniLife
+          </Button>
+          <Button variant="link" size="small">
+            Contact
+          </Button>
+          <Button variant="link" size="small">
+            Terms of Service
+          </Button>
+          <Button variant="link" size="small">
+            Cookie Policy
+          </Button>
+          <Button variant="link" size="small">
+            Privacy Policy
+          </Button>
+        </Wrapper>
+        <Wrapper>
+          <Button variant="link" size="small">
+            Follow us
+          </Button>
+        </Wrapper>
+      </FooterWrapper>
+      Copyright © UniLifeApp All rights reserved.
+    </BigWrapper>
   );
 }
