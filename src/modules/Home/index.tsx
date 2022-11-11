@@ -28,7 +28,7 @@ export default function Home() {
       { type: "heading1", text: "Unilife Application" },
       {
         type: "heading2",
-        text: "Tell your friends about us.",
+        text: "Tell your friends about us.🌈",
       },
     ],
   ];
