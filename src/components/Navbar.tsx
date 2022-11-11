@@ -63,10 +63,10 @@ export default function Navbar({}: Props) {
         {t("navbar.campaigns")}
       </Link>
       <Link style={linkStyleLogin} to="/auth/login">
-        Login
+        {t("navbar.login")}
       </Link>
       <Link style={linkStyle} to="/auth/register">
-        Register
+        {t("navbar.register")}
       </Link>
     </NavbarWrapper>
   );

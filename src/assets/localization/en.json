@@ -1,11 +1,13 @@
 {
   "hello": "hello world",
-  "loading" : "Loading",
-  "companies" : "Companies",
+  "loading": "Loading",
+  "companies": "Companies",
   "navbar": {
     "home": "Home",
     "companies": "Companies",
     "campaigns": "Campaigns",
-    "auth": "Login/Signup"
+    "auth": "Login/Signup",
+    "login": "Login",
+    "register": "Register"
   }
 }
