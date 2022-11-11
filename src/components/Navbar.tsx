@@ -30,9 +30,8 @@ const linkStyleLogin = {
   color: "#3D3D3D",
   border: "2.5px solid #7CF2B8",
   borderRadius: "10px",
-  padding: "16px 46px"
+  padding: "16px 46px",
 };
-
 
 export default function Navbar({}: Props) {
   const location = useLocation();
@@ -51,8 +50,9 @@ export default function Navbar({}: Props) {
   const { t } = useTranslation();
   return (
     <NavbarWrapper>
-      <UniLifeLogo />
-
+      <Link style={linkStyle} to="/">
+        <UniLifeLogo />
+      </Link>
       <Link style={linkStyle} to="/">
         {t("navbar.home")}
       </Link>
