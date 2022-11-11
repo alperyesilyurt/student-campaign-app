@@ -50,7 +50,7 @@ export default function RegisterForm(props: Props) {
   });
 
   const processForm: SubmitHandler<RegisterFormSchemaType> = async (
-    data: RegisterFormSchemaType
+    data: RegisterFormSchemaType,
   ) => {
     props.handleRegister(data);
     console.log("data", data);
@@ -119,7 +119,7 @@ export default function RegisterForm(props: Props) {
         <span>{errors.confirmPassword?.message}</span>
       )}
 
-      <Button type="primary">Register</Button>
+      <Button variant="primary">Register</Button>
     </CardWrapper>
   );
 }

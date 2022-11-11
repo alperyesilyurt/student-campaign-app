@@ -101,7 +101,7 @@ export default function LoginForm(props: Props) {
       />
       {errors.password?.message && <span>{errors.password?.message}</span>}
 
-      <Button type="primary"> Login</Button>
+      <Button variant="primary"> Login</Button>
     </CardWrapper>
   );
 }

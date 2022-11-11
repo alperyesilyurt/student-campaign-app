@@ -101,7 +101,7 @@ export default function CampaignDetail(props: campaignDetailProps) {
             <GetCodeCardHeadline>
               %15 <br /> student discount
             </GetCodeCardHeadline>
-            <Button size="large" type="black">
+            <Button size="large" variant="black">
               Get Code
             </Button>
           </CouponArea>
