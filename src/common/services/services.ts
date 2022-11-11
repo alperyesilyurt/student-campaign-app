@@ -11,7 +11,7 @@ export const services = {
     return response;
   },
   getCampaignByID: async (id: string) => {
-    const response = HttpClient.get(`${ENDPOINTS.singleCampaignDetail}/${id}`);
+    const response = HttpClient.get(`${ENDPOINTS.campaigns}/${id}`);
     return response;
   },
   getAllCampaignsFeatured: async () => {
