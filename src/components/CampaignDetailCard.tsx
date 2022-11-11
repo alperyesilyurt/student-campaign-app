@@ -1,13 +1,5 @@
 import styled from "styled-components";
-
-export type Campaign = {
-  name?: string;
-  description?: string;
-  campaignHeroImage: string;
-  campaignImages?: string[];
-  company: { name: string; logo: string };
-  validUntil: string;
-};
+import { Campaign } from "./CampaignCard";
 
 type Props = {
   campaign: Campaign;
@@ -22,16 +14,16 @@ const CampaignDetailCardWrapper = styled.div`
 `;
 
 function CampaignDetailCard(props: Props) {
-const { campaign } = props;
+  const { campaign } = props;
 
   return (
-      <CampaignDetailCardWrapper>
-        <img width={200} src={campaign.campaignHeroImage} />
-        <div>
-          <h3>{campaign.company.name}</h3>
-          <p>{campaign.validUntil}</p>
-        </div>
-      </CampaignDetailCardWrapper>
+    <CampaignDetailCardWrapper>
+      <img width={200} src={campaign.campaignHeroImage} />
+      <div>
+        <h3>{campaign.company.name}</h3>
+        <p>{campaign.validUntil}</p>
+      </div>
+    </CampaignDetailCardWrapper>
   );
 }
 
