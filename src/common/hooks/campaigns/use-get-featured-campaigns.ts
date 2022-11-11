@@ -1,12 +1,12 @@
 import { Campaign } from "@/components/CampaignCard";
 import { useQuery } from "@tanstack/react-query";
-import { services } from "../services/services";
+import { services } from "@/common/services/services";
 
-export const useGetCampaignsCarousel = () => {
+export const useGetFeaturedCampaigns = () => {
   const featuredCampaigns = useQuery(
     ["campaignsFeatured"],
     () => {
-      return services.getAllCampaignsFeatured();
+      return services.getFeaturedCampaigns();
     },
     {
       select: (data: any): { data: Campaign[] } => data,

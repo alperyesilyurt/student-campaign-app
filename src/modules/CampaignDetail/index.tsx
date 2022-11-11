@@ -1,5 +1,5 @@
+import { useGetCampaignByID } from "@/common/hooks/campaigns";
 import ScrollToTop from "@/common/hooks/scroll-to-top";
-import { useGetCampaignByID } from "@/common/hooks/use-get-campaign";
 import Button from "@/components/styled/button/Button";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";

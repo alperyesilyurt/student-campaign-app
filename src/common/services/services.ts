@@ -14,13 +14,9 @@ export const services = {
     const response = HttpClient.get(`${ENDPOINTS.campaigns}/${id}`);
     return response;
   },
-  getAllCampaignsFeatured: async () => {
-    try {
-      const response = HttpClient.get(ENDPOINTS.campaignsFeatured);
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
+  getFeaturedCampaigns: async () => {
+    const response = HttpClient.get(ENDPOINTS.campaignsFeatured);
+    return response;
   },
   login: async (loginForm: LoginFormSchemaType) => {
     try {

@@ -1,14 +1,12 @@
-import React, { Component } from "react";
 import styled from "styled-components";
-import { fontWeights, boxSizes, fontFamilies } from "./styled/constants";
+import { fontFamilies } from "./styled/constants";
 import * as colors from "./styled/colors";
-import Button from "./styled/button/Button";
 import { Campaign } from "./CampaignCard";
 
 type Props = {
   campaignCarousel: Campaign;
 };
-const CampaignCarouselWrapper = styled.div`
+export const CampaignCarouselWrapper = styled.div`
   font-family: ${fontFamilies.poppins}, sans-serif;
   background-color: ${colors.black};
   width: 439px;
