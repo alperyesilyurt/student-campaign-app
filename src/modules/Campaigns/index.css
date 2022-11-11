@@ -1,0 +1,14 @@
+.campaign-container {
+  background-image: linear-gradient(
+    to right,
+    rgba(124, 242, 184, 0.6),
+    rgba(156, 174, 255, 0.6),
+    rgba(255, 142, 142, 0.6)
+  );
+  margin-top: 40px;
+  padding-top: 44px;
+  padding-bottom: 44px;
+}
+.carousel-container {
+  padding: 60px 20px;
+}

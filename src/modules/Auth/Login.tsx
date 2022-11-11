@@ -4,7 +4,7 @@ import { saveTokenToStorage } from "./../../common/utils";
 import styled from "styled-components";
 import LoginForm from "@/components/forms/auth/LoginForm";
 import AuthSvg from "../../assets/vectors/auth.svg";
-import {AuthBackground} from "../../components/styled/constants"
+import { AuthBackground } from "../../components/styled/constants"
 
 const schema = z.object({
   email: z.string().email().min(2),
@@ -12,7 +12,7 @@ const schema = z.object({
 });
 export type LoginFormSchemaType = z.infer<typeof schema>;
 
-const AuthWrapper = styled.form`
+const AuthWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
