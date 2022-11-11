@@ -15,7 +15,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { useNavigate } from "react-router-dom";
 
 export type Campaign = {
-  id: string;
+  _id: string;
   name?: string;
   description?: string;
   campaignHeroImage: string;
