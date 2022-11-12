@@ -12,7 +12,7 @@ import {
   Collapse,
   Box,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const schema = z.object({
   email: z.string().email().min(2),
@@ -41,27 +41,26 @@ const HeadWrapper = styled.div`
 
 type Props = {
   handleLogin: (data: LoginFormSchemaType) => void;
+  isSubmitting: boolean;
 };
 
 export default function LoginForm(props: Props) {
+  const { isSubmitting } = props;
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<LoginFormSchemaType>({
     resolver: zodResolver(schema),
   });
-
+  const { t } = useTranslation();
   const processForm: SubmitHandler<LoginFormSchemaType> = async (
-    data: LoginFormSchemaType
+    data: LoginFormSchemaType,
   ) => {
     props.handleLogin(data);
+    reset();
   };
-
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
 
   return (
     <CardWrapper
@@ -111,7 +110,7 @@ export default function LoginForm(props: Props) {
         type="submit"
         isLoading={isSubmitting}
       >
-        Login
+        {t("forms.loginForm.login")}
       </Button>
     </CardWrapper>
   );

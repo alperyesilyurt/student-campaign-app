@@ -9,5 +9,19 @@
     "auth": "Login/Signup",
     "login": "Login",
     "register": "Register"
+  },
+  "forms": {
+    "loginForm": {
+      "login": "Login",
+      "toast": {
+        "errorTitle": "Couldnt login",
+        "errorDescription": "Please check your credentials and try again",
+        "successTitle": "Login successful",
+        "successDescription": "You are now logged in"
+      }
+    },
+    "registerForm": {
+      "register": "Register"
+    }
   }
 }

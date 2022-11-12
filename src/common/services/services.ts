@@ -19,19 +19,11 @@ export const services = {
     return response;
   },
   login: async (loginForm: LoginFormSchemaType) => {
-    try {
-      const response = HttpClient.post(ENDPOINTS.auth.login, loginForm);
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
+    const response = HttpClient.post(ENDPOINTS.auth.login, loginForm);
+    return response;
   },
   register: async (registerForm: RegisterFormSchemaType) => {
-    try {
-      const response = HttpClient.post(ENDPOINTS.auth.register, registerForm);
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
+    const response = HttpClient.post(ENDPOINTS.auth.register, registerForm);
+    return response;
   },
 };
