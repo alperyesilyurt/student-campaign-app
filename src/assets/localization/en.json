@@ -8,7 +8,8 @@
     "campaigns": "Campaigns",
     "auth": "Login/Signup",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "contact": "Contact"
   },
   "forms": {
     "loginForm": {

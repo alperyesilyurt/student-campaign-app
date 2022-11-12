@@ -56,8 +56,8 @@ export default function Navbar({}: Props) {
       <Link style={linkStyle} to="/">
         {t("navbar.home")}
       </Link>
-      <Link style={linkStyle} to="/companies">
-        {t("navbar.companies")}
+      <Link style={linkStyle} to="/contact">
+        {t("navbar.contact")}
       </Link>
       <Link style={linkStyle} to="/campaigns">
         {t("navbar.campaigns")}

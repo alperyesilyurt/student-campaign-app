@@ -5,7 +5,6 @@ import { ErrorBoundary } from "react-error-boundary";
 import { extendTheme } from "@chakra-ui/react";
 
 import Navbar from "./components/Navbar";
-import Companies from "@/modules/Companies";
 import Campaigns from "@/modules/Campaigns";
 import CampaignDetail from "@/modules/CampaignDetail";
 import Home from "@/modules/Home";
@@ -15,6 +14,7 @@ import Footer from "@/components/Footer";
 
 import "./App.css";
 import "@/common/i18n/i18n";
+import Contact from "@/modules/Contacts";
 
 const queryClient = new QueryClient();
 
@@ -54,7 +54,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/register" element={<Register />} />
-            <Route path="/companies" element={<Companies />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/campaigns" element={<Campaigns />} />
             <Route path="/campaign/:id" element={<CampaignDetail />} />
           </Routes>
