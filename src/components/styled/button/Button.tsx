@@ -16,7 +16,6 @@ export interface ButtonProps {
   children?: string | React.ReactNode;
   onClick?: () => void;
   variant: ButtonType;
-  outlined?: boolean;
   type?: "button" | "submit" | "reset" | undefined;
   fontWeight?: string;
   boxSize?: string;

@@ -1,3 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none
+}
+
+body {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
 /*  :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
