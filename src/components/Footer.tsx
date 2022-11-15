@@ -8,45 +8,15 @@ import {
   Box,
   Divider,
 } from "@chakra-ui/react";
-import styled from "styled-components";
 import UniLifeLogo_2 from "./icons/UniLifeLogo_2";
 import {
   IoLogoFacebook,
   IoLogoInstagram,
   IoLogoYoutube,
-  IoMdGitMerge,
 } from "react-icons/io";
 
 type Props = {};
 
-const FooterWrapper = styled.div`
-  background: #202020;
-  width: 100%;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 50px;
-`;
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: 20px;
-  margin-right: 20px;
-`;
-const BigWrapper = styled.div`
-  background: #000000;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  > * {
-    flex-basis: 250px;
-  }
-`;
 
 const discoverCampaigns = [
   {
