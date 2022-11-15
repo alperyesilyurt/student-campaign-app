@@ -20,6 +20,7 @@ export interface ButtonProps {
   fontWeight?: string;
   boxSize?: string;
   size?: "large" | "medium" | "small" | "default";
+  outlined?: boolean;
 }
 
 const Button = (props: ButtonProps) => {
