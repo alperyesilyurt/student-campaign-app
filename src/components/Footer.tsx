@@ -160,9 +160,9 @@ export default function Footer({}: Props) {
         </Flex>
       </SimpleGrid>
       <Divider borderColor="whiteAlpha.600" borderWidth={1} />
-      <Flex color="white" p="20px 40px" justifyContent="space-between">
-        <Text>© 2021 UniLife. All rights reserved.</Text>
-      </Flex>
+      <Text color="white" p="20px 40px" align="center">
+        © {new Date().getFullYear()} UniLife. All rights reserved.
+      </Text>
     </Box>
   );
 }
