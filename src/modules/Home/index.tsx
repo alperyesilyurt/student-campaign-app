@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import AnimatedText from "../../components/animated/AnimatedText";
 import "./styles.scss";
 import { Image } from "@chakra-ui/react";
+import { DefaultLayout } from "@/layouts";
 
 export default function Home() {
   const [replay, setReplay] = useState(true);
@@ -64,27 +65,29 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="home-animation">
-      <motion.div
-        className={"App"}
-        initial="hidden"
-        animate={replay ? "visible" : "hidden"}
-        variants={container}
-      >
-        <div className="container">
-          {placeholderText[textIndex].map((item, index) => {
-            return <AnimatedText {...item} key={index} />;
-          })}
-        </div>
-      </motion.div>
-      <motion.div>
-        <Image
-          w={"lg"}
-          h={"sm"}
-          borderRadius={"xl"}
-          src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80"
-        ></Image>
-      </motion.div>
-    </div>
+    <DefaultLayout>
+      <div className="home-animation">
+        <motion.div
+          className={"App"}
+          initial="hidden"
+          animate={replay ? "visible" : "hidden"}
+          variants={container}
+        >
+          <div className="container">
+            {placeholderText[textIndex].map((item, index) => {
+              return <AnimatedText {...item} key={index} />;
+            })}
+          </div>
+        </motion.div>
+        <motion.div>
+          <Image
+            w={"lg"}
+            h={"sm"}
+            borderRadius={"xl"}
+            src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80"
+          ></Image>
+        </motion.div>
+      </div>
+    </DefaultLayout>
   );
 }

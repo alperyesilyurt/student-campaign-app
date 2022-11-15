@@ -1,6 +1,7 @@
 import { useGetCampaignByID } from "@/common/hooks/campaigns";
 import ScrollToTop from "@/common/hooks/scroll-to-top";
 import Button from "@/components/styled/button/Button";
+import { DefaultLayout } from "@/layouts";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -85,33 +86,35 @@ export default function CampaignDetail(props: campaignDetailProps) {
   }
 
   return (
-    <Page>
-      <ScrollToTop />
-      {singleCampaign.isSuccess ? (
-        <>
-          <img
-            src={singleCampaign.data?.data.campaignHeroImage}
-            style={{ width: "90%", objectFit: "contain", padding: "30px" }}
-          />
-          <CompanyLogoImage src={singleCampaign.data?.data.company.logo} />
-          <CampaignDescription>
-            {singleCampaign.data?.data.description}
-          </CampaignDescription>
-          <CouponArea>
-            <GetCodeCardHeadline>
-              %15 <br /> student discount
-            </GetCodeCardHeadline>
-            <Button size="large" variant="black">
-              Get Code
-            </Button>
-          </CouponArea>
-          <CampaignDescription>
-            {singleCampaign.data?.data.description}
-          </CampaignDescription>
-        </>
-      ) : (
-        <h5>{t("errors.campaignDetail.fetchError")}</h5>
-      )}
-    </Page>
+    <DefaultLayout>
+      <Page>
+        <ScrollToTop />
+        {singleCampaign.isSuccess ? (
+          <>
+            <img
+              src={singleCampaign.data?.data.campaignHeroImage}
+              style={{ width: "90%", objectFit: "contain", padding: "30px" }}
+            />
+            <CompanyLogoImage src={singleCampaign.data?.data.company.logo} />
+            <CampaignDescription>
+              {singleCampaign.data?.data.description}
+            </CampaignDescription>
+            <CouponArea>
+              <GetCodeCardHeadline>
+                %15 <br /> student discount
+              </GetCodeCardHeadline>
+              <Button size="large" variant="black">
+                Get Code
+              </Button>
+            </CouponArea>
+            <CampaignDescription>
+              {singleCampaign.data?.data.description}
+            </CampaignDescription>
+          </>
+        ) : (
+          <h5>{t("errors.campaignDetail.fetchError")}</h5>
+        )}
+      </Page>
+    </DefaultLayout>
   );
 }

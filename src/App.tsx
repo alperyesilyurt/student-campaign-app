@@ -15,6 +15,7 @@ import Footer from "@/components/Footer";
 import "./App.css";
 import "@/common/i18n/i18n";
 import Contact from "@/modules/Contacts";
+import CompanyOutlet from "./modules/Companies";
 
 const queryClient = new QueryClient();
 
@@ -49,16 +50,15 @@ function App() {
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <ChakraProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
-          <Navbar></Navbar>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/register" element={<Register />} />
+            <Route path="/company" element={<CompanyOutlet />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/campaigns" element={<Campaigns />} />
             <Route path="/campaign/:id" element={<CampaignDetail />} />
           </Routes>
-          <Footer></Footer>
         </QueryClientProvider>
       </ChakraProvider>
     </ErrorBoundary>

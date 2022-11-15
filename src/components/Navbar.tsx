@@ -1,7 +1,5 @@
-import { builtinModules } from "module";
-import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import UniLifeLogo from "./icons/UniLifeLogo";
 
@@ -34,18 +32,18 @@ const linkStyleLogin = {
 };
 
 export default function Navbar({}: Props) {
-  const location = useLocation();
+  // const location = useLocation();
 
   /*   console.log('hash', location.hash);
   console.log('pathname', location.pathname);
   console.log('search', location.search); */
 
-  if (location.pathname === "/auth/register") {
-    return null;
-  }
-  if (location.pathname === "/auth/login") {
-    return null;
-  }
+  // if (location.pathname === "/auth/register") {
+  //   return null;
+  // }
+  // if (location.pathname === "/auth/login") {
+  //   return null;
+  // }
 
   const { t } = useTranslation();
   return (

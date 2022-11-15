@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import reactLogo from "../../assets/react.svg";
+import { DefaultLayout } from "@/layouts";
 
 export default function Contact() {
-  const [count, setCount] = useState(0);
 
-  return <div>Contact Form</div>;
+  return <DefaultLayout>Contact Form</DefaultLayout>;
 }

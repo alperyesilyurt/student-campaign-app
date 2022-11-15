@@ -14,6 +14,7 @@ import {
   useGetFeaturedCampaigns,
 } from "@/common/hooks/campaigns";
 import { Box, Flex, Skeleton } from "@chakra-ui/react";
+import { DefaultLayout } from "@/layouts";
 
 export default function Campaigns() {
   const { t } = useTranslation();
@@ -21,12 +22,14 @@ export default function Campaigns() {
   const featuredCampaigns = useGetFeaturedCampaigns();
 
   return (
-    <div>
-      <CampaignCarouselList featuredCampaigns={featuredCampaigns} />
-      <div className="campaign-container">
-        <CampaignsList campaigns={campaigns} />
+    <DefaultLayout>
+      <div>
+        <CampaignCarouselList featuredCampaigns={featuredCampaigns} />
+        <div className="campaign-container">
+          <CampaignsList campaigns={campaigns} />
+        </div>
       </div>
-    </div>
+    </DefaultLayout>
   );
 }
 export const StyledCampaignListWrapper = styled.div`
