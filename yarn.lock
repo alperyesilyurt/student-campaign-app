@@ -1353,6 +1353,11 @@
     magic-string "^0.26.2"
     react-refresh "^0.14.0"
 
+"@xstate/immer@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@xstate/immer/-/immer-0.3.1.tgz#73a7948f7f248e00dc287b55290a949cd8276b3d"
+  integrity sha512-YE+KY08IjEEmXo6XKKpeSGW4j9LfcXw+5JVixLLUO3fWQ3M95joWJ40VtGzx0w0zQSzoCNk8NgfvwWBGSbIaTA==
+
 "@xstate/react@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@xstate/react/-/react-3.0.1.tgz#937eeb5d5d61734ab756ca40146f84a6fe977095"
@@ -1885,6 +1890,11 @@ i18next@^21.10.0:
   integrity sha512-YeuIBmFsGjUfO3qBmMOc0rQaun4mIpGKET5WDwvu8lU7gvwpcariZLNtL0Fzj+zazcHUrlXHiptcFhBMFaxzfg==
   dependencies:
     "@babel/runtime" "^7.17.2"
+
+immer@^9.0.16:
+  version "9.0.16"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.16.tgz#8e7caab80118c2b54b37ad43e05758cdefad0198"
+  integrity sha512-qenGE7CstVm1NrHQbMh8YaSzTZTFNP3zPqr3YU0S0UY441j4bJTg4A2Hh5KAhwgaiU6ZZ1Ar6y/2f4TblnMReQ==
 
 immutable@^4.0.0:
   version "4.1.0"
