@@ -1,69 +1,28 @@
-import { Route, Routes } from "react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ChakraProvider } from "@chakra-ui/react";
 import { ErrorBoundary } from "react-error-boundary";
-import { extendTheme } from "@chakra-ui/react";
 
-import Campaigns from "@/modules/Campaigns";
-import CampaignDetail from "@/modules/CampaignDetail";
-import Home from "@/modules/Home";
-import Login from "../src/modules/Auth/Login";
-import { CompanyLogin } from "@/modules/Companies/CompanyLogin"
-import Register from "../src/modules/Auth/Register";
+import { store } from "@/store/store";
+import { Provider } from "react-redux";
 
+import { NavigationRoutes } from "./NavigationRoutes";
+import { theme } from "@/common/constants";
+import ErrorFallback from "@/components/ErrorFallback";
 import "./App.css";
 import "@/common/i18n/i18n";
-import Contact from "@/modules/Contacts";
-import CompanyOutlet from "./modules/Companies";
-import { CompanyRegister } from "./modules/Companies/CompanyRegister";
 
 const queryClient = new QueryClient();
-
-function ErrorFallback({
-  error,
-  resetErrorBoundary,
-}: {
-  error: any;
-  resetErrorBoundary: any;
-}) {
-  return (
-    <div role="alert">
-      <p>Something went wrong:</p>
-      <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
-    </div>
-  );
-}
-// 2. Extend the theme to include custom colors, fonts, etc
-const colors = {
-  brand: {
-    900: "#1a365d",
-    800: "#153e75",
-    700: "#278fff",
-  },
-};
-
-const theme = extendTheme({ colors });
 
 function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <ChakraProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="/auth/register" element={<Register />} />
-            <Route path="/company" element={<CompanyOutlet />}>
-              <Route path="login" element={<CompanyLogin />}></Route>
-              <Route path="register" element={<CompanyRegister />}></Route>
-            </Route>
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/campaigns" element={<Campaigns />} />
-            <Route path="/campaign/:id" element={<CampaignDetail />} />
-          </Routes>
-        </QueryClientProvider>
-      </ChakraProvider>
+      <Provider store={store}>
+        <ChakraProvider theme={theme}>
+          <QueryClientProvider client={queryClient}>
+            <NavigationRoutes />
+          </QueryClientProvider>
+        </ChakraProvider>
+      </Provider>
     </ErrorBoundary>
   );
 }

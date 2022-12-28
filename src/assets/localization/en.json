@@ -23,6 +23,18 @@
     },
     "registerForm": {
       "register": "Register"
+    },
+    "forgotPasswordForm": {
+      "recover": "Recover password"
+    },
+    "contactForm": {
+      "contact": "Contact",
+      "toast": {
+        "errorTitle": "Couldnt send message",
+        "errorDescription": "Please check your credentials and try again",
+        "successTitle": "Message sent",
+        "successDescription": "Your message has been sent"
+      }
     }
   }
 }

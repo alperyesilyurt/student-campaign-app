@@ -19,10 +19,9 @@ import { Link } from "react-router-dom";
 
 const schema = z.object({
   email: z.string().email().min(2),
-  password: z.string().min(6),
 });
 
-export type LoginFormSchemaType = z.infer<typeof schema>;
+export type ForgotPasswordSchemaType = z.infer<typeof schema>;
 
 const CardWrapper = styled.form`
   display: flex;
@@ -43,25 +42,25 @@ const HeadWrapper = styled.div`
 `;
 
 type Props = {
-  handleLogin: (data: LoginFormSchemaType) => void;
+  handleSubmit: (data: ForgotPasswordSchemaType) => void;
   isSubmitting: boolean;
 };
 
-export default function LoginForm(props: Props) {
+export function ForgotPasswordForm(props: Props) {
   const { isSubmitting } = props;
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<LoginFormSchemaType>({
+  } = useForm<ForgotPasswordSchemaType>({
     resolver: zodResolver(schema),
   });
   const { t } = useTranslation();
-  const processForm: SubmitHandler<LoginFormSchemaType> = async (
-    data: LoginFormSchemaType,
+  const processForm: SubmitHandler<ForgotPasswordSchemaType> = async (
+    data: ForgotPasswordSchemaType,
   ) => {
-    props.handleLogin(data);
+    props.handleSubmit(data);
     reset();
   };
 
@@ -71,8 +70,8 @@ export default function LoginForm(props: Props) {
       style={{ display: "flex", flexDirection: "column", width: 300 }}
     >
       <HeadWrapper>
-        <Text fontSize={"2xl"}>Hey uni-student 👋 </Text>
-        <Text>Login to continue</Text>
+        <Text fontSize={"2xl"}>Hey 🖖</Text>
+        <Text>Lets fix your password</Text>
       </HeadWrapper>
 
       <FormControl isInvalid={Boolean(errors.email)}>
@@ -91,38 +90,13 @@ export default function LoginForm(props: Props) {
         </Collapse>
       </FormControl>
 
-      <FormControl isInvalid={Boolean(errors.password)}>
-        <FormLabel htmlFor="password">Password</FormLabel>
-        <Input
-          {...register("password", { required: true, minLength: 6 })}
-          type="password"
-          placeholder="Enter your password"
-        />
-        <Collapse in={errors.password?.message ? true : false} animateOpacity>
-          <Box fontSize={"sm"} textColor={"red.500"}>
-            <FormErrorMessage>
-              {errors.password && errors.password.message}
-            </FormErrorMessage>
-          </Box>
-        </Collapse>
-      </FormControl>
-
-      <Flex justifyContent={"space-between"}>
-        <Button variant={"link"}>
-          <Link to={"/auth/forgot-password"}>Forgot password?</Link>
-        </Button>
-        <Button variant={"link"}>
-          <Link to={"/auth/register"}>Signup</Link>
-        </Button>
-      </Flex>
-
       <Button
         colorScheme="purple"
         size="lg"
         type="submit"
         isLoading={isSubmitting}
       >
-        {t("forms.loginForm.login")}
+        {t("forms.forgotPasswordForm.recover")}
       </Button>
     </CardWrapper>
   );

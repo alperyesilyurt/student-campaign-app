@@ -1,10 +1,9 @@
 import { z } from "zod";
 import { services } from "@/common/services/services";
-import { saveTokenToStorage } from "./../../common/utils";
+import { saveTokenToStorage } from "@/common/utils";
 import RegisterForm, {
   RegisterFormSchemaType,
 } from "@/components/forms/auth/RegisterForm";
-import { AuthLayout } from "@/layouts/AuthLayout";
 
 const schema = z.object({
   email: z.string().email().min(2),
@@ -19,9 +18,5 @@ export default function Register() {
     saveTokenToStorage(token);
   };
 
-  return (
-    <AuthLayout>
-        <RegisterForm handleRegister={registerHandler}></RegisterForm>
-    </AuthLayout>
-  );
+  return <RegisterForm handleRegister={registerHandler}></RegisterForm>;
 }

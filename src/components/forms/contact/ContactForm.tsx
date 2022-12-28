@@ -10,73 +10,80 @@ import {
   FormLabel,
   Input,
   Button,
+  Textarea,
+  Select,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-
-const schema = z
-  .object({
-    username: z.string().min(5),
-    email: z.string().email().min(2),
-    password: z.string().min(6),
-    confirmPassword: z.string().min(6),
-  })
-  .refine(({ password, confirmPassword }) => password === confirmPassword, {
-    message: "The passwords did not match",
-    path: ["confirmPassword"],
-  });
-
-export type RegisterFormSchemaType = z.infer<typeof schema>;
 
 const CardWrapper = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
-  padding: 24px 16px;
+  gap: 20px;
+  padding: 23px 44px;
   background: #ffffff;
   border: 1.5px solid #d9d9d9;
   box-shadow: 0px 4px 64px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
+  width: 400px;
 `;
 const HeadWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+  gap: 20px;
+  h1 {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 37px;
+    color: #000000;
+  }
 `;
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+const schema = z.object({
+  email: z.string().email().min(2),
+  phoneNumber: z.string().regex(phoneRegExp, "Phone number is not valid"),
+  message: z.string().min(6),
+  contactMethod: z.string(),
+});
+
+export type ContactFormSchema = z.infer<typeof schema>;
+
 type Props = {
-  handleRegister: (data: RegisterFormSchemaType) => void;
+  handleFormSubmit: (data: ContactFormSchema) => void;
+  isLoading: boolean;
 };
 
-export default function RegisterForm(props: Props) {
+export default function ContactForm(props: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterFormSchemaType>({
+  } = useForm<ContactFormSchema>({
     resolver: zodResolver(schema),
   });
   const { t } = useTranslation();
-
-  const processForm: SubmitHandler<RegisterFormSchemaType> = async (
-    data: RegisterFormSchemaType,
+  const { isLoading } = props;
+  const processForm: SubmitHandler<ContactFormSchema> = async (
+    data: ContactFormSchema,
   ) => {
-    props.handleRegister(data);
+    props.handleFormSubmit(data);
   };
 
   return (
-    <CardWrapper
-      onSubmit={handleSubmit(processForm)}
-      style={{ display: "flex", flexDirection: "column", width: 300 }}
-    >
+    <CardWrapper onSubmit={handleSubmit(processForm)}>
       <HeadWrapper>
-        <div>Welcome!</div>
-        <div>Register the Unilife</div>
+        <h1>Contact Us</h1>
       </HeadWrapper>
-
       <FormControl isInvalid={Boolean(errors.email)}>
         <FormLabel htmlFor="email">Email</FormLabel>
         <Input
+          size={"lg"}
           type="email"
           placeholder="Your email here"
           {...register("email", { required: true })}
@@ -89,65 +96,68 @@ export default function RegisterForm(props: Props) {
           </Box>
         </Collapse>
       </FormControl>
-
-      <FormControl isInvalid={Boolean(errors.username)}>
-        <FormLabel htmlFor="username">Full name</FormLabel>
+      <FormControl isInvalid={Boolean(errors.phoneNumber)}>
+        <FormLabel htmlFor="phoneNumber">Phone number</FormLabel>
         <Input
-          type="username"
-          placeholder="Your username here"
-          {...register("username", { required: true })}
-        />
-        <Collapse in={errors.username?.message ? true : false} animateOpacity>
-          <Box fontSize={"sm"} textColor={"red.500"}>
-            <FormErrorMessage>
-              {errors.username && errors.username.message}
-            </FormErrorMessage>
-          </Box>
-        </Collapse>
-      </FormControl>
-
-      <FormControl isInvalid={Boolean(errors.password)}>
-        <FormLabel htmlFor="password">Password</FormLabel>
-        <Input
-          type="password"
-          placeholder="Your password here"
-          {...register("password", { required: true })}
-        />
-        <Collapse in={errors.password?.message ? true : false} animateOpacity>
-          <Box fontSize={"sm"} textColor={"red.500"}>
-            <FormErrorMessage>
-              {errors.password && errors.password.message}
-            </FormErrorMessage>
-          </Box>
-        </Collapse>
-      </FormControl>
-
-      <FormControl isInvalid={Boolean(errors.confirmPassword)}>
-        <FormLabel htmlFor="confirmPassword">Confirm your password</FormLabel>
-        <Input
-          type="password"
-          placeholder="Your confirmPassword here"
-          {...register("confirmPassword", { required: true })}
+          size={"lg"}
+          placeholder="544-339-08-00"
+          type={"number"}
+          {...register("phoneNumber", { required: true })}
         />
         <Collapse
-          in={errors.confirmPassword?.message ? true : false}
+          in={errors.phoneNumber?.message ? true : false}
           animateOpacity
         >
           <Box fontSize={"sm"} textColor={"red.500"}>
             <FormErrorMessage>
-              {errors.confirmPassword && errors.confirmPassword.message}
+              {errors.phoneNumber && errors.phoneNumber.message}
             </FormErrorMessage>
           </Box>
         </Collapse>
       </FormControl>
+      <FormControl isInvalid={Boolean(errors.message)}>
+        <FormLabel htmlFor="message">Your message</FormLabel>
+        <Textarea
+          placeholder="Your message here"
+          {...register("message", { required: true })}
+          size="sm"
+        />
+        <Collapse in={errors.message?.message ? true : false} animateOpacity>
+          <Box fontSize={"sm"} textColor={"red.500"}>
+            <FormErrorMessage>
+              {errors.message && errors.message.message}
+            </FormErrorMessage>
+          </Box>
+        </Collapse>
+      </FormControl>
+
+      <FormControl isInvalid={Boolean(errors.contactMethod)}>
+        <FormLabel htmlFor="contactMethod">Your Contact Method</FormLabel>
+        <Select
+          {...register("contactMethod", { required: true })}
+          /* placeholder="Select contact method " */
+          defaultValue={"phone"}
+        >
+          <option value="phone">Phone</option>
+          <option value="email">Email</option>
+        </Select>
+        <Collapse in={errors.message?.message ? true : false} animateOpacity>
+          <Box fontSize={"sm"} textColor={"red.500"}>
+            <FormErrorMessage>
+              {errors.contactMethod && errors.contactMethod.message}
+            </FormErrorMessage>
+          </Box>
+        </Collapse>
+      </FormControl>
+
       <Button
         mt={"6"}
         colorScheme="purple"
         size="lg"
         type="submit"
-        isLoading={false}
+        isLoading={isLoading}
       >
-        {t("forms.registerForm.register")}
+        {t("forms.contactForm.contact")}
       </Button>
     </CardWrapper>
   );

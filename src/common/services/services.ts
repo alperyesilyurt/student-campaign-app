@@ -1,6 +1,6 @@
-import { Campaign } from "@/components/CampaignCard";
-import { LoginFormSchemaType } from "../../components/forms/auth/LoginForm";
-import { RegisterFormSchemaType } from "../../components/forms/auth/RegisterForm";
+import { LoginFormSchemaType } from "@/components/forms/auth/LoginForm";
+import { RegisterFormSchemaType } from "@/components/forms/auth/RegisterForm";
+import { ContactFormSchema } from "@/components/forms/contact/ContactForm";
 
 import { ENDPOINTS } from "../constants/constants";
 import HttpClient from "./HttpClient";
@@ -25,5 +25,23 @@ export const services = {
   register: async (registerForm: RegisterFormSchemaType) => {
     const response = HttpClient.post(ENDPOINTS.auth.register, registerForm);
     return response;
+  },
+  getAllCampaignCategories: async () => {
+    const response = HttpClient.get(ENDPOINTS.categories);
+    return response;
+  },
+  createContact: async (contact: ContactFormSchema) => {
+    const response = HttpClient.post(ENDPOINTS.contacts, contact);
+    return response;
+  },
+  forgotPassword: async (email: string) => {
+    /*   const response = HttpClient.post(ENDPOINTS.auth.forgotPassword, { email });
+    return response; */
+    // return a promise that resolves after 2 seconds
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 2000);
+    });
   },
 };

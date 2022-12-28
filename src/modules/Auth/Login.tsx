@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { services } from "@/common/services/services";
-import styled from "styled-components";
 import LoginForm from "@/components/forms/auth/LoginForm";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
@@ -21,6 +20,7 @@ export default function Login() {
     // const response = await services.login(data);
     loginResponse.mutate(data);
 
+    /* TODO: Implement a saving token caching and fetching mechanism */
     // const { user, token } = response?.data;
     // saveTokenToStorage(token);
   };
@@ -39,7 +39,7 @@ export default function Login() {
     toast({
       title: t("forms.loginForm.toast.successTitle"),
       description: t("forms.loginForm.toast.successDescription"),
-      status: "error",
+      status: "success",
       duration: 9000,
       isClosable: true,
       position: "top",
@@ -47,11 +47,9 @@ export default function Login() {
   }
 
   return (
-    <AuthLayout>
-      <LoginForm
-        handleLogin={loginHandler}
-        isSubmitting={loginResponse.isLoading}
-      ></LoginForm>
-    </AuthLayout>
+    <LoginForm
+      handleLogin={loginHandler}
+      isSubmitting={loginResponse.isLoading}
+    ></LoginForm>
   );
 }

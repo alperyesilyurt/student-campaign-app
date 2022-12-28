@@ -1,4 +1,4 @@
-import { StyledCampaignListWrapper } from "@/modules/Campaigns";
+import { StyledCampaignListWrapper } from "@/modules/Campaigns/CampaignList";
 import {
   Box,
   Center,
@@ -7,7 +7,6 @@ import {
   SkeletonText,
 } from "@chakra-ui/react";
 import React from "react";
-
 type CampaignSkeletonListProps = {
   count?: number;
 };

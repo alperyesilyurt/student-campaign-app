@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { companyReducers } from "./features";
+import { companyReducers, authReducer } from "./features";
 
 export const store = configureStore({
   reducer: {
     company: companyReducers,
+    auth: authReducer,
     // Add the generated reducer as a specific top-level slice
     // [counterApi.reducerPath]: counterApi.reducer,
   },

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import UniLifeLogo from "./icons/UniLifeLogo";
 import { useMediaQuery, useDisclosure, Icon } from "@chakra-ui/react";
@@ -57,13 +57,6 @@ const linkStyleLogin = {
 export default function Navbar({}: Props) {
   const location = useLocation();
   const disclosure = useDisclosure();
-
-  if (location.pathname === "/auth/register") {
-    return null;
-  }
-  if (location.pathname === "/auth/login") {
-    return null;
-  }
 
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
