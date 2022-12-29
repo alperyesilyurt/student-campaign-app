@@ -23,7 +23,7 @@ const CampaignsList = (props: CampaignListProps) => {
   }
   return (
     <StyledCampaignListWrapper>
-      {campaigns.data?.data?.map((campaign, index) => {
+      {campaigns.data.map((campaign, index) => {
         return (
           <CampaignCard
             campaign={campaign}

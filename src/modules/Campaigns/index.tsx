@@ -10,19 +10,32 @@ import { Box, Button, Flex, Skeleton } from "@chakra-ui/react";
 import { DefaultLayout } from "@/layouts";
 import CampaignCarouselList from "./CampaignCarouselList";
 import CampaignsList from "./CampaignList";
+import { Category } from "@/store/features/campaigns/campaign.interface";
+import { useState } from "react";
 
 export default function Campaigns() {
+  const [categoryId, setCategoryId] = useState(() => "all");
+  const [pageParam, setPageParam] = useState(0);
   const { t } = useTranslation();
-  const campaigns = useGetAllCampaigns();
+  const campaigns = useGetAllCampaigns({ category: categoryId, pageParam });
+
   const featuredCampaigns = useGetFeaturedCampaigns();
   const categories = useGetAllCategories();
+
+  const filterCatefories = (categoryID: string) => {
+    setCategoryId(categoryID);
+    campaigns.refetch();
+  };
 
   return (
     <DefaultLayout>
       <div>
         <CampaignCarouselList featuredCampaigns={featuredCampaigns} />
         <div className="campaign-container">
-          <CategoryList categories={categories} />
+          <CategoryList
+            categories={categories}
+            handleCategoryClick={filterCatefories}
+          />
           <CampaignsList campaigns={campaigns} />
         </div>
       </div>
@@ -32,10 +45,19 @@ export default function Campaigns() {
 
 type CategoryListProps = {
   categories: ReturnType<typeof useGetAllCategories>;
+  handleCategoryClick: (id: string) => void;
+  selectedCategory?: Category;
 };
 const CategoryList = (props: CategoryListProps) => {
   const { t } = useTranslation();
   const { categories } = props;
+
+  const handleClick = (category: Category | { name: string; _id: string }) => {
+    setselectedCategory(category?._id);
+    props.handleCategoryClick(category._id);
+  };
+  const [selectedCategory, setselectedCategory] = useState(() => "all");
+
   if (categories.isLoading || categories.isError) {
     return (
       <Flex justify={"center"} mb={8} gap={6}>
@@ -57,11 +79,21 @@ const CategoryList = (props: CategoryListProps) => {
   return (
     <Box my={4}>
       <Flex justifyContent={"center"} gap={2}>
-        <Button variant={"solid"}>All</Button>
-        {categories.data?.data?.map((category) => {
+        <Button
+          variant={selectedCategory === "all" ? "solid" : "ghost"}
+          onClick={() => handleClick({ name: "all", _id: "all" })}
+        >
+          All
+        </Button>
+        {categories.data?.map((category) => {
           return (
             <Box key={category._id}>
-              <Button variant={"ghost"}>{category.name}</Button>
+              <Button
+                variant={selectedCategory === category._id ? "solid" : "ghost"}
+                onClick={() => handleClick(category)}
+              >
+                {category.name}
+              </Button>
             </Box>
           );
         })}

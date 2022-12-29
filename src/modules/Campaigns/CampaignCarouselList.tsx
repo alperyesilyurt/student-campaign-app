@@ -87,7 +87,7 @@ const CampaignCarouselList = (props: CampaignCarouselListProps) => {
     <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative" }}>
       <Slider ref={carouselRef} {...carouselSettings}>
         {featuredCampaigns.isFetched ? (
-          featuredCampaigns.data?.data?.map((campaignCarousel) => {
+          featuredCampaigns.data?.map((campaignCarousel) => {
             return (
               <CampaignCarousel
                 campaignCarousel={campaignCarousel}
