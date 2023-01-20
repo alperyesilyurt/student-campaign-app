@@ -12,13 +12,16 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
+import { forwardRef, useImperativeHandle, useRef } from "react";
+import { motion } from "framer-motion";
 
 const schema = z
   .object({
-    username: z.string().min(5),
+    name: z.string().min(2),
+    surname: z.string().min(2),
     email: z.string().email().min(2),
-    password: z.string().min(6),
-    confirmPassword: z.string().min(6),
+    password: z.string().min(8),
+    confirmPassword: z.string().min(8),
   })
   .refine(({ password, confirmPassword }) => password === confirmPassword, {
     message: "The passwords did not match",
@@ -45,24 +48,45 @@ const HeadWrapper = styled.div`
   gap: 10px;
 `;
 type Props = {
-  handleRegister: (data: RegisterFormSchemaType) => void;
+  onSubmit: (data: RegisterFormSchemaType) => void;
 };
-
-export default function RegisterForm(props: Props) {
+export type RegisterFormRef = {
+  submit: () => void;
+};
+export const RegisterForm = forwardRef<RegisterFormRef, Props>((props, ref) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormSchemaType>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      name: "bedo",
+      surname: "bedo",
+      email: "asd" + Math.random() + "@itu.edu.tr",
+      password: "12345678",
+      confirmPassword: "12345678",
+    },
   });
   const { t } = useTranslation();
+
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
 
   const processForm: SubmitHandler<RegisterFormSchemaType> = async (
     data: RegisterFormSchemaType,
   ) => {
-    props.handleRegister(data);
+    props.onSubmit(data);
   };
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      submit: () => {
+        submitButtonRef?.current?.click();
+      },
+    }),
+    [handleSubmit],
+  );
 
   return (
     <CardWrapper
@@ -90,17 +114,33 @@ export default function RegisterForm(props: Props) {
         </Collapse>
       </FormControl>
 
-      <FormControl isInvalid={Boolean(errors.username)}>
-        <FormLabel htmlFor="username">Full name</FormLabel>
+      <FormControl isInvalid={Boolean(errors.name)}>
+        <FormLabel htmlFor="name">Name</FormLabel>
         <Input
-          type="username"
-          placeholder="Your username here"
-          {...register("username", { required: true })}
+          type="name"
+          placeholder="Your name here"
+          {...register("name", { required: true })}
         />
-        <Collapse in={errors.username?.message ? true : false} animateOpacity>
+        <Collapse in={errors.name?.message ? true : false} animateOpacity>
           <Box fontSize={"sm"} textColor={"red.500"}>
             <FormErrorMessage>
-              {errors.username && errors.username.message}
+              {errors.name && errors.name.message}
+            </FormErrorMessage>
+          </Box>
+        </Collapse>
+      </FormControl>
+
+      <FormControl isInvalid={Boolean(errors.name)}>
+        <FormLabel htmlFor="surname">Surname</FormLabel>
+        <Input
+          type="surname"
+          placeholder="Your surname here"
+          {...register("surname", { required: true })}
+        />
+        <Collapse in={errors.surname?.message ? true : false} animateOpacity>
+          <Box fontSize={"sm"} textColor={"red.500"}>
+            <FormErrorMessage>
+              {errors.surname && errors.surname.message}
             </FormErrorMessage>
           </Box>
         </Collapse>
@@ -141,6 +181,8 @@ export default function RegisterForm(props: Props) {
         </Collapse>
       </FormControl>
       <Button
+        ref={submitButtonRef}
+        visibility={"hidden"}
         mt={"6"}
         colorScheme="purple"
         size="lg"
@@ -151,4 +193,4 @@ export default function RegisterForm(props: Props) {
       </Button>
     </CardWrapper>
   );
-}
+});

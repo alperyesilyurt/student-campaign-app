@@ -10,6 +10,9 @@ import { theme } from "@/common/constants";
 import ErrorFallback from "@/components/ErrorFallback";
 import "./App.css";
 import "@/common/i18n/i18n";
+import { useEffect } from "react";
+import { useAppDispatch } from "./store/hooks";
+import { fetchUniversities } from "./store/features";
 
 const queryClient = new QueryClient();
 

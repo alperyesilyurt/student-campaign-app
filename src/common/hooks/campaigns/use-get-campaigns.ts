@@ -17,10 +17,6 @@ export const useGetAllCampaigns = (params: Params) => {
     category,
   });
 
-  console.log({
-    limit: String(EACH_PAGE),
-    skip: String(EACH_PAGE * Math.max(pageParam - 1, 0)),
-  });
   const getAllCampaigns = useQuery({
     queryKey: ["campaigns/" + category, pageParam],
     queryFn: () => {

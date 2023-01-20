@@ -10,9 +10,11 @@ export const ENDPOINTS = {
   auth: {
     login: "v1/authentication/login",
     register: "v1/authentication/register",
+    verifyEmail: "v1/users/verify-email",
   },
   categories: "v1/categories",
   contacts: "v1/contacts",
+  universities: "v1/universities",
 };
 
 export const STORAGE_KEYS = {

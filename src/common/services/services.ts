@@ -2,6 +2,7 @@ import { Campaign } from "@/components/CampaignCard";
 import { LoginFormSchemaType } from "@/components/forms/auth/LoginForm";
 import { RegisterFormSchemaType } from "@/components/forms/auth/RegisterForm";
 import { ContactFormSchema } from "@/components/forms/contact/ContactForm";
+import { University, User } from "@/store/features";
 import { Category } from "@/store/features/campaigns/campaign.interface";
 
 import { ENDPOINTS } from "../constants/constants";
@@ -15,8 +16,10 @@ export const services = {
     return response.data;
   },
   getCampaignByID: async (id: string) => {
-    const response = HttpClient.get(`${ENDPOINTS.campaigns}/${id}`);
-    return response;
+    const response = await HttpClient.get<Campaign>(
+      `${ENDPOINTS.campaigns}/${id}`,
+    );
+    return response.data;
   },
   getFeaturedCampaigns: async () => {
     const response = await HttpClient.get<Campaign[]>(
@@ -43,11 +46,27 @@ export const services = {
   forgotPassword: async (email: string) => {
     /*   const response = HttpClient.post(ENDPOINTS.auth.forgotPassword, { email });
     return response; */
-    // return a promise that resolves after 2 seconds
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(true);
       }, 2000);
     });
+  },
+  getAllUniversities: async () => {
+    const response = await HttpClient.get<University[]>(ENDPOINTS.universities);
+    return response.data;
+  },
+  verifyEmail: async ({
+    email,
+    verificationCode,
+  }: {
+    email: string;
+    verificationCode: string;
+  }) => {
+    const response = await HttpClient.get<User>(
+      ENDPOINTS.auth.verifyEmail +
+        `?email=${email}&verificationCode=${verificationCode}`,
+    );
+    return response.data;
   },
 };

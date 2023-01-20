@@ -14,9 +14,7 @@ export default function ForgotPassword({}: Props) {
   const { t } = useTranslation();
   const forgotPasswordMutation = useMutation(services.forgotPassword);
 
-  const handle = (data: ForgotPasswordSchemaType) => {
-    console.log(data);
-  };
+  const handle = (data: ForgotPasswordSchemaType) => {};
   return (
     <div>
       <ForgotPasswordForm

@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import AuthOutlet from "./modules/Auth/AuthOutlet";
 import ForgotPassword from "./modules/Auth/ForgotPassword";
@@ -11,10 +11,19 @@ import { CompanyLogin } from "./modules/Companies/CompanyLogin";
 import { CompanyRegister } from "./modules/Companies/CompanyRegister";
 import Contact from "./modules/Contacts";
 import Home from "./modules/Home";
+import { fetchUniversities, getCategoriesThunk } from "./store/features";
+import { useAppDispatch } from "./store/hooks";
 
 type Props = {};
 
 export function NavigationRoutes({}: Props) {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUniversities());
+    dispatch(getCategoriesThunk());
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />

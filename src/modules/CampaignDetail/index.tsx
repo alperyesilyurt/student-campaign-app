@@ -2,6 +2,7 @@ import { useGetCampaignByID } from "@/common/hooks/campaigns";
 import ScrollToTop from "@/common/hooks/scroll-to-top";
 import Button from "@/components/styled/button/Button";
 import { DefaultLayout } from "@/layouts";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -51,10 +52,11 @@ const CampaignDescription = styled.div`
   text-align: center;
 `;
 const CompanyLogoImage = styled.img`
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background-color: #000000;
+  width: 240px;
+  height: 240px;
+  border-radius: 20%;
+  background-color: #878787;
+  object-fit: contain;
   margin-top: -150px;
   @media (max-width: 768px) {
     width: 130px;
@@ -92,12 +94,12 @@ export default function CampaignDetail(props: campaignDetailProps) {
         {singleCampaign.isSuccess ? (
           <>
             <img
-              src={singleCampaign.data?.data.campaignHeroImage}
+              src={singleCampaign.data.campaignHeroImage}
               style={{ width: "90%", objectFit: "contain", padding: "30px" }}
             />
-            <CompanyLogoImage src={singleCampaign.data?.data.company.logo} />
+            <CompanyLogoImage src={singleCampaign.data.company.logo} />
             <CampaignDescription>
-              {singleCampaign.data?.data.description}
+              {singleCampaign.data.description}
             </CampaignDescription>
             <CouponArea>
               <GetCodeCardHeadline>
@@ -108,7 +110,7 @@ export default function CampaignDetail(props: campaignDetailProps) {
               </Button>
             </CouponArea>
             <CampaignDescription>
-              {singleCampaign.data?.data.description}
+              {singleCampaign.data.description}
             </CampaignDescription>
           </>
         ) : (

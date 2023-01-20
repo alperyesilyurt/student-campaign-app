@@ -9,3 +9,8 @@ export interface Category {
   createdAt: string;
   updatedAt: string;
 }
+export interface Campaign {}
+
+export interface CampaignState {
+  categories: Category[];
+}
