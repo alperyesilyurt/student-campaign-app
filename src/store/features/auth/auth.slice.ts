@@ -21,6 +21,12 @@ const initialState: AuthState = {
       educationInfo: null,
       verifyEmail: null,
     },
+    student: {
+      basicInfo: null,
+      personalInfo: null,
+      educationInfo: null,
+      verifyEmail: null,
+    },
   },
   isRegistering: false,
   registeredAt: undefined,
