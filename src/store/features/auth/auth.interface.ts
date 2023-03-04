@@ -12,16 +12,28 @@ export interface User {
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
   role: string;
-  tokens: any[];
+  tokens: Token[];
   createdAt: string;
   updatedAt: string;
   __v: number;
 }
 
+interface Token {
+  deviceId: any;
+  refreshToken: string;
+}
+
 export type AuthState = {
   isLoggedIn: boolean;
+  authToast: {
+    title: string;
+    description?: string | undefined;
+    status: "success" | "error" | "warning" | "info" | "loading" | undefined;
+  } | null;
+  isSubmittingStudent: boolean;
   user?: User;
   accesToken?: string;
+  isStudentRegisterSuccess: boolean;
   registerSteps: {
     studentSteps: Record<StudentFormSteps, FormStepValues | null>;
     student: {

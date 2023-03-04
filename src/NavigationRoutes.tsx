@@ -42,6 +42,11 @@ export function NavigationRoutes({}: Props) {
       <Route path="/contact" element={<Contact />} />
       <Route path="/campaigns" element={<Campaigns />} />
       <Route path="/campaign/:id" element={<CampaignDetail />} />
+
+      <Route path="/dashboard/student">
+        <Route path="home" element={<div>Student Dashboard</div>} />
+      </Route>
+      <Route path="*" element={<div>404</div>} />
     </Routes>
   );
 }

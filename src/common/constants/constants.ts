@@ -11,6 +11,8 @@ export const ENDPOINTS = {
     login: "v1/authentication/login",
     register: "v1/authentication/register",
     verifyEmail: "v1/users/verify-email",
+    me: "v1/authentication/me",
+    updateStudent: "v1/authentication/student/update-me",
   },
   categories: "v1/categories",
   contacts: "v1/contacts",

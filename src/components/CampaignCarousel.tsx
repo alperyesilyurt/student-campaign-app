@@ -58,7 +58,7 @@ function CampaignCarousel(props: Props) {
             height={239}
             src={campaignCarousel.campaignHeroImage}
           />
-          <img className="logo" src={campaignCarousel.company.logo} />
+          <img className="logo" src={campaignCarousel.company?.logo} />
         </div>
         <h4>{campaignCarousel.name}</h4>
       </CampaignCarouselWrapper>
