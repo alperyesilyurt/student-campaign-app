@@ -3,13 +3,30 @@ import { motion } from "framer-motion";
 // @ts-ignore
 import AnimatedText from "../../components/animated/AnimatedText";
 import "./styles.scss";
-import { Image } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  Container,
+  Heading,
+  Image,
+  VStack,
+  Text,
+  Flex,
+} from "@chakra-ui/react";
 import { DefaultLayout } from "@/layouts";
+import { CTA } from "@/components/PageSpecific/LandingPage/CTA";
+import { Highlights } from "@/components/PageSpecific/LandingPage/Highlights";
+import { useNavigate } from "react-router-dom";
+import { IllustrationLanding } from "@/components/PageSpecific/LandingPage/IllustrationLanding";
+import Testimonials from "@/components/PageSpecific/LandingPage/Testimonials";
+import { fontFamilies } from "@/common/constants";
 
 export default function Home() {
   const [replay, setReplay] = useState(true);
   const [textIndex, setTextIndex] = useState(0);
   // Placeholder text data, as if from API
+  const navigation = useNavigate();
+
   const placeholderText = [
     [
       { type: "heading1", text: "Unilife Application" },
@@ -66,6 +83,53 @@ export default function Home() {
 
   return (
     <DefaultLayout>
+      <Container maxW="container.lg">
+        <Center p={4} minHeight="70vh">
+          <VStack>
+            <Flex w={"full"}>
+              <IllustrationLanding
+                height={{ sm: "24rem", lg: "20rem" }}
+                mt={{ base: 12, sm: 16 }}
+              />
+            </Flex>
+            <Container maxW="container.md" textAlign="center">
+              <Heading
+                fontFamily={fontFamilies.heading}
+                size="2xl"
+                mb={4}
+                color="gray.700"
+              >
+                Application: where all discount opportunities for students are
+                together
+              </Heading>
+
+              <Text fontSize="xl" color="gray.500">
+                Freelancers use Biller to accept payments and send invoices to
+                clients with a single click
+              </Text>
+
+              <Text my={2} fontSize="sm" color="gray.500">
+                102+ builders have signed up in the last 30 days
+              </Text>
+              <Button
+                mt={8}
+                colorScheme="green"
+                onClick={() => navigation("/campaigns")}
+              >
+                Lets see campaigns →
+              </Button>
+              <Button
+                ml={2}
+                mt={8}
+                colorScheme="gray"
+                onClick={() => navigation("/contact")}
+              >
+                See Events →
+              </Button>
+            </Container>
+          </VStack>
+        </Center>
+      </Container>
       <div className="home-animation">
         <motion.div
           className={"App"}
@@ -88,6 +152,13 @@ export default function Home() {
           ></Image>
         </motion.div>
       </div>
+      <Highlights />
+      <Testimonials />
+      <CTA
+        cta={{ name: "Lets do it" }}
+        heading={"Enjoy cheaper life in university"}
+        key={44}
+      />
     </DefaultLayout>
   );
 }
