@@ -13,6 +13,8 @@ import Contact from "./modules/Contacts";
 import Home from "./modules/Home";
 import { fetchUniversities, getCategoriesThunk } from "./store/features";
 import { useAppDispatch } from "./store/hooks";
+import DashboardOutlet from "./modules/Dashboard/DashboardOutlet";
+import DashboardHomeStudentView from "./modules/Dashboard/DashboardHomeStudentView";
 
 type Props = {};
 
@@ -42,6 +44,11 @@ export function NavigationRoutes({}: Props) {
       <Route path="/contact" element={<Contact />} />
       <Route path="/campaigns" element={<Campaigns />} />
       <Route path="/campaign/:id" element={<CampaignDetail />} />
+
+      <Route path="/dashboard/student" element={<DashboardOutlet />}>
+        <Route path="home" element={<DashboardHomeStudentView />} />
+      </Route>
+      <Route path="*" element={<div>404</div>} />
     </Routes>
   );
 }

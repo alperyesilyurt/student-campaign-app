@@ -116,7 +116,7 @@ export default function Home() {
                 colorScheme="green"
                 onClick={() => navigation("/campaigns")}
               >
-                Lets see campaigns →
+                Kampanyaları görüntüle →
               </Button>
               <Button
                 ml={2}
@@ -124,7 +124,7 @@ export default function Home() {
                 colorScheme="gray"
                 onClick={() => navigation("/contact")}
               >
-                See Events →
+                Etkinlikler →
               </Button>
             </Container>
           </VStack>

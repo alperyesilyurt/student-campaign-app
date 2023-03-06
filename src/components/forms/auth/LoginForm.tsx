@@ -71,8 +71,8 @@ export default function LoginForm(props: Props) {
       style={{ display: "flex", flexDirection: "column", width: 300 }}
     >
       <HeadWrapper>
-        <Text fontSize={"2xl"}>Hey uni-student 👋 </Text>
-        <Text>Login to continue</Text>
+        <Text fontSize={"2xl"}>Merhaba 👋 </Text>
+        <Text>Giriş yaparak devam edebilirsin</Text>
       </HeadWrapper>
 
       <FormControl isInvalid={Boolean(errors.email)}>

@@ -9,11 +9,14 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { AuthState, FormStepValues, StudentFormSteps } from "./auth.interface";
+import { sanitizeStudentInfo } from "@/common/utils";
 
 const initialState: AuthState = {
   isLoggedIn: false,
   user: undefined,
   accesToken: undefined,
+  isStudentRegisterSuccess: false,
+  authToast: null,
   registerSteps: {
     studentSteps: {
       basicInfo: null,
@@ -29,6 +32,7 @@ const initialState: AuthState = {
     },
   },
   isRegistering: false,
+  isSubmittingStudent: false,
   registeredAt: undefined,
   step: 0,
 };
@@ -43,6 +47,18 @@ export const authSlice = createSlice({
     setToken(state: AuthState, action: PayloadAction<AuthState["accesToken"]>) {
       console.log("action.payload", action.payload);
       state.accesToken = action.payload;
+    },
+    setIsStudentRegisterSuccess(
+      state: AuthState,
+      action: PayloadAction<AuthState["isStudentRegisterSuccess"]>,
+    ) {
+      state.isStudentRegisterSuccess = action.payload;
+    },
+    setAuthToast(
+      state: AuthState,
+      action: PayloadAction<AuthState["authToast"]>,
+    ) {
+      state.authToast = action.payload;
     },
     setStudentStepValues(
       state,
@@ -67,6 +83,15 @@ export const authSlice = createSlice({
     });
     builder.addCase(registerThunk.rejected, (state, action) => {
       state.isRegistering = false;
+    });
+    builder.addCase(verifyEmail.fulfilled, (state, action) => {
+      state.isSubmittingStudent = false;
+    });
+    builder.addCase(verifyEmail.pending, (state, action) => {
+      state.isSubmittingStudent = true;
+    });
+    builder.addCase(verifyEmail.rejected, (state, action) => {
+      state.isSubmittingStudent = false;
     });
   },
 });
@@ -112,30 +137,46 @@ export const loginThunk = createAsyncThunk(
   async (value: LoginFormSchemaType, thunkAPI) => {
     try {
       const response = await services.login(value);
-      console.log("response", response?.data);
       thunkAPI.dispatch(setToken(response?.data.accessToken));
+      const currentUser = await services.getCurrentUser(
+        response?.data.accessToken,
+      );
+      thunkAPI.dispatch(setUser(currentUser));
     } catch (error) {}
-    // thunkAPI.dispatch(setToken());
   },
 );
 
 export const verifyEmail = createAsyncThunk(
   "auth/verify-email",
   async (value: { emailVerifyToken: string }, thunkAPI) => {
-    const currentUser = thunkAPI.getState() as { auth: AuthState };
-    if (!currentUser) {
+    const currentStore = thunkAPI.getState() as { auth: AuthState };
+    if (!currentStore) {
       return;
     }
     try {
       const response = await services.verifyEmail({
-        email: currentUser.auth.user?.email!,
+        email: currentStore.auth.user?.email!,
         verificationCode: value.emailVerifyToken,
       });
-      console.log("response", response);
-      console.log("🚀 ~ file: auth.slice.ts:129 ~ response", response);
-      thunkAPI.dispatch(setUser(response));
+      thunkAPI.dispatch(setUser(response.data));
+      const studentUpdatePayload = sanitizeStudentInfo(
+        currentStore.auth.registerSteps.studentSteps,
+      );
+      const updatedResponse = await services.updateStudentInfo(
+        studentUpdatePayload,
+        currentStore.auth.accesToken || "",
+      );
+      if (updatedResponse.status === 200) {
+        thunkAPI.dispatch(setIsStudentRegisterSuccess(true));
+      }
     } catch (error) {
-      console.log("error", error);
+      thunkAPI.dispatch(
+        setAuthToast({
+          title: "Hata",
+          description: "Geçersiz kod",
+          status: "error",
+        }),
+      );
     }
   },
 );
@@ -146,6 +187,8 @@ export const {
   setToken,
   setStep,
   setRegistirationDate,
+  setIsStudentRegisterSuccess,
+  setAuthToast,
 } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

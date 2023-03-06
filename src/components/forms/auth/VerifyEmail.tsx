@@ -8,9 +8,11 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Input,
   Button,
   Text,
+  Flex,
+  PinInput,
+  PinInputField,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { forwardRef, useImperativeHandle, useRef } from "react";
@@ -22,7 +24,7 @@ import { formatMinutesAndSeconds } from "@/common/utils";
 import { motion } from "framer-motion";
 
 const schema = z.object({
-  emailVerifyToken: z.string().length(6),
+  emailVerifyToken: z.string(),
 });
 
 export type VerifyEmailFormSchemeType = z.infer<typeof schema>;
@@ -54,14 +56,11 @@ export type VerifyEmailRef = {
 export const VerifyEmailForm = forwardRef<VerifyEmailRef, Props>(
   (props, ref) => {
     const {
-      register,
+      setValue,
       handleSubmit,
       formState: { errors },
     } = useForm<VerifyEmailFormSchemeType>({
       resolver: zodResolver(schema),
-      defaultValues: {
-        emailVerifyToken: "",
-      },
     });
     const { t } = useTranslation();
 
@@ -109,11 +108,63 @@ export const VerifyEmailForm = forwardRef<VerifyEmailRef, Props>(
 
           <FormControl isInvalid={Boolean(errors.emailVerifyToken)}>
             <FormLabel htmlFor="emailVerifyToken">Confirm your email</FormLabel>
-            <Input
-              type="text"
-              placeholder="_ _ _ _ _ _"
-              {...register("emailVerifyToken", { required: true })}
-            />
+            <Flex justify="center">
+              <PinInput otp onChange={(e) => setValue("emailVerifyToken", e)}>
+                <PinInputField
+                  fontSize="36px"
+                  color={"black"}
+                  borderRadius="16px"
+                  borderColor={"gray.100"}
+                  h={{ base: "44px", md: "72px" }}
+                  w={{ base: "44px", md: "72px" }}
+                  me="10px"
+                />
+                <PinInputField
+                  fontSize="36px"
+                  color={"black"}
+                  borderRadius="16px"
+                  borderColor={"gray.100"}
+                  h={{ base: "44px", md: "72px" }}
+                  w={{ base: "44px", md: "72px" }}
+                  me="10px"
+                />
+                <PinInputField
+                  fontSize="36px"
+                  color={"black"}
+                  borderRadius="16px"
+                  borderColor={"gray.100"}
+                  h={{ base: "44px", md: "72px" }}
+                  w={{ base: "44px", md: "72px" }}
+                  me="10px"
+                />
+                <PinInputField
+                  fontSize="36px"
+                  color={"black"}
+                  borderRadius="16px"
+                  borderColor={"gray.100"}
+                  h={{ base: "44px", md: "72px" }}
+                  w={{ base: "44px", md: "72px" }}
+                  me="10px"
+                />
+                <PinInputField
+                  fontSize="36px"
+                  color={"black"}
+                  borderRadius="16px"
+                  borderColor={"gray.100"}
+                  h={{ base: "44px", md: "72px" }}
+                  w={{ base: "44px", md: "72px" }}
+                  me="10px"
+                />
+                <PinInputField
+                  fontSize="36px"
+                  color={"black"}
+                  borderRadius="16px"
+                  borderColor={"gray.100"}
+                  h={{ base: "44px", md: "72px" }}
+                  w={{ base: "44px", md: "72px" }}
+                />
+              </PinInput>
+            </Flex>
             <Collapse
               in={errors.emailVerifyToken?.message ? true : false}
               animateOpacity

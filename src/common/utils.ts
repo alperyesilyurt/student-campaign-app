@@ -1,3 +1,4 @@
+import { AuthState } from "@/store/features";
 import { STORAGE_KEYS } from "./constants/constants";
 
 export const saveTokenToStorage = (token: string) => {
@@ -22,4 +23,17 @@ export const formatMinutesAndSeconds = (minutes: number, seconds: number) => {
   const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
   return `${formattedMinutes}:${formattedSeconds}`;
+};
+
+export const sanitizeStudentInfo = (
+  obj: AuthState["registerSteps"]["studentSteps"],
+) => {
+  const result = {
+    studentInfo: {
+      personalInfo: obj.personalInfo,
+      educationInfo: obj.educationInfo,
+    },
+  };
+
+  return result;
 };

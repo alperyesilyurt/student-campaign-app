@@ -31,6 +31,27 @@ export const services = {
     const response = HttpClient.post(ENDPOINTS.auth.login, loginForm);
     return response;
   },
+  getCurrentUser: async (accessToken: string) => {
+    const response = await HttpClient.get<User>(ENDPOINTS.auth.me, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data;
+  },
+  updateStudentInfo: async (studentInfo: any, accessToken: string) => {
+    const response = HttpClient.patch(
+      ENDPOINTS.auth.updateStudent,
+      studentInfo,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    return response;
+  },
+
   register: async (registerForm: RegisterFormSchemaType) => {
     const response = HttpClient.post(ENDPOINTS.auth.register, registerForm);
     return response;
@@ -67,6 +88,6 @@ export const services = {
       ENDPOINTS.auth.verifyEmail +
         `?email=${email}&verificationCode=${verificationCode}`,
     );
-    return response.data;
+    return { data: response.data, status: response.status };
   },
 };
