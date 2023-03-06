@@ -3,9 +3,9 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import UniLifeLogo from "./icons/UniLifeLogo";
 import { useMediaQuery, useDisclosure, Icon } from "@chakra-ui/react";
-import Button from "./styled/button/Button";
 import { Sidebar } from "./Sidebar";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Button } from "@chakra-ui/react";
 
 type Props = {};
 
@@ -42,18 +42,6 @@ const Actions = styled.div`
   align-items: center;
 `;
 
-const linkStyle = {
-  textDecoration: "none",
-  color: "#3D3D3D",
-};
-const linkStyleLogin = {
-  textDecoration: "none",
-  color: "#3D3D3D",
-  border: "2.5px solid #7CF2B8",
-  borderRadius: "10px",
-  padding: "16px 46px",
-};
-
 export default function Navbar({}: Props) {
   const location = useLocation();
   const disclosure = useDisclosure();
@@ -63,29 +51,31 @@ export default function Navbar({}: Props) {
   const { t } = useTranslation();
   return (
     <NavbarWrapper className={isLargerThan768 ? "" : "mobile"}>
-      <Link style={linkStyle} to="/">
+      <Link to="/">
         <UniLifeLogo height="70px" />
       </Link>
       {isLargerThan768 && (
         <Menu>
-          <Link style={linkStyle} to="/">
-            {t("navbar.home")}
+          <Link to="/">
+            <Button variant="ghost">{t("navbar.home")}</Button>
           </Link>
-          <Link style={linkStyle} to="/contact">
-            {t("navbar.contact")}
+          <Link to="/contact">
+            <Button variant="ghost">{t("navbar.contact")}</Button>
           </Link>
-          <Link style={linkStyle} to="/campaigns">
-            {t("navbar.campaigns")}
+          <Link to="/campaigns">
+            <Button variant="ghost">{t("navbar.campaigns")}</Button>
           </Link>
         </Menu>
       )}
       {isLargerThan768 && (
         <Actions>
-          <Link style={linkStyleLogin} to="/auth/login">
-            {t("navbar.login")}
+          <Link to="/auth/login">
+            <Button variant="outline" size="lg" borderColor="green">
+              {t("navbar.login")}
+            </Button>
           </Link>
-          <Link style={linkStyle} to="/auth/register">
-            {t("navbar.register")}
+          <Link to="/auth/register">
+            <Button variant="ghost">{t("navbar.register")}</Button>
           </Link>
         </Actions>
       )}
