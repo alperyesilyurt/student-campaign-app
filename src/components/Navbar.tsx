@@ -73,6 +73,9 @@ export default function Navbar({}: Props) {
           <Link to="/campaigns">
             <Button variant="ghost">{t("navbar.campaigns")}</Button>
           </Link>
+          <Link to="/company/login">
+            <Button variant="ghost">Şirket giriş</Button>
+          </Link>
         </Menu>
       )}
       {isLargerThan768 && <NavbarAuth />}

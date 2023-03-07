@@ -6,10 +6,10 @@ import { store } from "@/store/store";
 import { Provider } from "react-redux";
 
 import { NavigationRoutes } from "./NavigationRoutes";
-import { theme } from "@/common/constants";
 import ErrorFallback from "@/components/ErrorFallback";
 import "./App.css";
 import "@/common/i18n/i18n";
+import theme from "@/common/theme/theme";
 
 const queryClient = new QueryClient();
 
