@@ -62,6 +62,10 @@ export function NavigationRoutes({}: Props) {
       <Route path="/campaigns" element={<Campaigns />} />
       <Route path="/campaign/:id" element={<CampaignDetail />} />
 
+      <Route path="/dashboard/company" element={<DashboardOutlet />}>
+        <Route path="home" element={<DashboardHomeStudentView />} />
+      </Route>
+
       <Route path="/dashboard/student" element={<DashboardOutlet />}>
         <Route path="home" element={<DashboardHomeStudentView />} />
       </Route>

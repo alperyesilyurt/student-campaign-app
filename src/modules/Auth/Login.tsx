@@ -21,6 +21,7 @@ export default function Login() {
   const loginMutation = useMutation(services.login);
   const toast = useToast();
   const navigate = useNavigate();
+
   const loginHandler = async (data: LoginFormSchemaType) => {
     loginMutation.mutate(data, {
       onSuccess: (data) => {

@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { forwardRef, useImperativeHandle, useRef } from "react";
-import { motion } from "framer-motion";
 
 const schema = z
   .object({

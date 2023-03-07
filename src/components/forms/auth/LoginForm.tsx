@@ -94,7 +94,7 @@ export default function LoginForm(props: Props) {
       <FormControl isInvalid={Boolean(errors.password)}>
         <FormLabel htmlFor="password">Password</FormLabel>
         <Input
-          {...register("password", { required: true, minLength: 6 })}
+          {...register("password", { required: true, minLength: 8 })}
           type="password"
           placeholder="Enter your password"
         />

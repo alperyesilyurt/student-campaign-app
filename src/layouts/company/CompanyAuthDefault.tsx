@@ -1,3 +1,5 @@
+import FixedPlugin from "@/components/common/FixedPlugin";
+import Footer from "@/components/common/FooterAuth";
 import { Box, Flex, Icon, Text, Link } from "@chakra-ui/react";
 import React from "react";
 import { FaChevronLeft } from "react-icons/fa";
@@ -55,6 +57,7 @@ function CompanyAuthDefault(props: Props) {
           position="absolute"
           right="0px"
         >
+          <FixedPlugin />
           <Flex
             bg={`url(${illustrationBackground})`}
             justify="center"
@@ -67,6 +70,7 @@ function CompanyAuthDefault(props: Props) {
             borderBottomLeftRadius={{ lg: "120px", xl: "200px" }}
           />
         </Box>
+        <Footer />
       </Flex>
     </Flex>
   );
