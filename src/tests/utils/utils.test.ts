@@ -1,6 +1,7 @@
 import {
   formatMinutesAndSeconds,
   queryStringBuild,
+  sanitizeStudentInfo,
 } from "@/common/utils/utils";
 import { assert, describe, expect, it } from "vitest";
 
@@ -37,3 +38,31 @@ describe("formatMinutesAndSeconds test", () => {
     expect(formatted).toEqual("20:00");
   });
 });
+
+describe("sanitizeStudentInfo test", () => {
+  it("builds query as expected", () => {
+    const result = sanitizeStudentInfo(dummyStudentStepsData);
+    expect(result).toMatchSnapshot();
+  });
+});
+
+const dummyStudentStepsData = {
+  personalInfo: {
+    interests: ["mongoid"],
+    birthDay: "2021-05-05",
+  },
+  basicInfo: {
+    name: "asd",
+    surname: "z.string().min(2",
+    email: "bed@x.itu.edu.tr",
+    password: "123123123",
+    confirmPassword: "123123123",
+  },
+  educationInfo: {
+    graduationYear: 2021,
+    university: "test",
+  },
+  verifyEmail: {
+    code: 1234,
+  },
+};

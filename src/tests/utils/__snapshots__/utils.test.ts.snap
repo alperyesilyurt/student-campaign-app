@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sanitizeStudentInfo test > builds query as expected 1`] = `
+{
+  "studentInfo": {
+    "educationInfo": {
+      "graduationYear": 2021,
+      "university": "test",
+    },
+    "personalInfo": {
+      "birthDay": "2021-05-05",
+      "interests": [
+        "mongoid",
+      ],
+    },
+  },
+}
+`;
