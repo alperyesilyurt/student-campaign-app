@@ -1,9 +1,25 @@
 import { useGetCampaignByID } from "@/common/hooks/campaigns";
 import ScrollToTop from "@/common/hooks/scroll-to-top";
-import Button from "@/components/styled/button/Button";
+import { services } from "@/common/services/services";
+import { CampaignResponse } from "@/common/types/campaign.interface";
+import { GetCouponCodeModal } from "@/components/PageSpecific/Campaign/GetCouponCodeModal";
+import { NotAuthenticatedModal } from "@/components/PageSpecific/Campaign/NotAuthenticatedModal";
 import { DefaultLayout } from "@/layouts";
-import { useEffect } from "react";
+import { selectIsLoggedIn } from "@/store/features";
+import { useAppSelector } from "@/store/hooks";
+import {
+  Button,
+  Center,
+  Heading,
+  Link,
+  Slide,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
+import { ca } from "date-fns/locale";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -68,24 +84,105 @@ const CompanyLogoImage = styled.img`
 type campaignDetailProps = {
   campaignID?: string;
 };
+function getRandomArbitrary(min: number, max: number) {
+  if (typeof min !== "number" || typeof max !== "number") {
+    throw "getRandomArbitrary requires two numbers as arguments";
+  }
+  if (min > max) {
+    throw "getRandomArbitrary requires the first argument to be less than the second";
+  }
+  return Math.random() * (max - min) + min;
+}
+
+const loadingBGColors = [
+  "green.200",
+  "green.300",
+  "orange.400",
+  "orange.500",
+  "green.700",
+  "green.800",
+  "green.400",
+  "green.200",
+  "green.100",
+];
+
+const CampaignLoading = () => {
+  const [currentColor, setCurrentColor] = useState("green.100");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const randomIndex = Math.floor(
+        getRandomArbitrary(0, loadingBGColors.length),
+      );
+      setCurrentColor(loadingBGColors[randomIndex]);
+    }, 200);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <Center
+      w={"100vw"}
+      h={"100vh"}
+      bg={currentColor}
+      transition={"ease"}
+      style={{
+        transition: "background-color 0.3s ease",
+      }}
+    >
+      <Heading color={"green"}> unilife </Heading>
+    </Center>
+  );
+};
 
 export default function CampaignDetail(props: campaignDetailProps) {
   const { campaignID } = props;
+  const { t } = useTranslation();
   const params = useParams();
 
-  const campaignIDToFetch = params.id || campaignID;
+  const isUserLoggedIn = useSelector(selectIsLoggedIn);
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingWithCode, setIsLoadingWithCode] = useState(false);
+  const [campaignWithCode, setCampaignWithCode] =
+    useState<CampaignResponse | null>(null);
+
+  const campaignIDToFetch = params.id || campaignID;
   if (!campaignIDToFetch) {
     return <div>Invalid campaign ID</div>;
   }
 
   const singleCampaign = useGetCampaignByID(campaignIDToFetch);
+  const getCampaignWithCode = async () => {
+    setIsLoadingWithCode(true);
+    const response = await services.getCampaignWithCodeByID(campaignIDToFetch);
+    setCampaignWithCode(response);
+    setTimeout(() => {
+      setIsLoadingWithCode(false);
+      onOpen();
+    }, 2500);
+  };
 
-  const { t } = useTranslation();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isNotAuthOpen,
+    onOpen: onNotAuthOpen,
+    onClose: onNotAuthClose,
+  } = useDisclosure();
 
-  if (singleCampaign.isLoading) {
-    return <>Loading</>;
-  }
+  useEffect(() => {
+    if (singleCampaign.isSuccess) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3400);
+    }
+  }, [singleCampaign.isSuccess]);
+
+  const getCouponCode = () => {
+    if (!isUserLoggedIn) {
+      onNotAuthOpen();
+    }
+    getCampaignWithCode();
+  };
 
   return (
     <DefaultLayout>
@@ -98,14 +195,23 @@ export default function CampaignDetail(props: campaignDetailProps) {
               style={{ width: "90%", objectFit: "contain", padding: "30px" }}
             />
             <CompanyLogoImage src={singleCampaign.data.company.logo} />
+            <Link>{singleCampaign.data.company.name} </Link>
+            <Heading>{singleCampaign.data.name}</Heading>
             <CampaignDescription>
               {singleCampaign.data.description}
             </CampaignDescription>
+
             <CouponArea>
               <GetCodeCardHeadline>
                 %15 <br /> student discount
               </GetCodeCardHeadline>
-              <Button size="large" variant="black">
+              <Button
+                colorScheme="green"
+                bg={"black"}
+                size={"lg"}
+                onClick={() => getCouponCode()}
+                isLoading={isLoadingWithCode}
+              >
                 Get Code
               </Button>
             </CouponArea>
@@ -116,6 +222,15 @@ export default function CampaignDetail(props: campaignDetailProps) {
         ) : (
           <h5>{t("errors.campaignDetail.fetchError")}</h5>
         )}
+        <Slide direction="bottom" style={{ zIndex: 12 }} in={isLoading}>
+          <CampaignLoading />
+        </Slide>
+        <GetCouponCodeModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+        <NotAuthenticatedModal
+          isOpen={isNotAuthOpen}
+          onClose={onNotAuthClose}
+          onOpen={onNotAuthOpen}
+        />
       </Page>
     </DefaultLayout>
   );

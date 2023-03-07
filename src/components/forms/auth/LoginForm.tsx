@@ -117,7 +117,7 @@ export default function LoginForm(props: Props) {
       </Flex>
 
       <Button
-        colorScheme="purple"
+        colorScheme="green"
         size="lg"
         type="submit"
         isLoading={isSubmitting}

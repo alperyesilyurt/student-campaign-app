@@ -16,9 +16,34 @@ export interface User {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  studentInfo: StudentInfo;
 }
 
-interface Token {
+export interface Root {
+  _id: string;
+  email: string;
+  password: string;
+  name: string;
+  surname: string;
+  isUserActive: boolean;
+  isEmailVerified: boolean;
+  isPhoneVerified: boolean;
+  role: string;
+  tokens: Token[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface StudentInfo {
+  personalInfo: PersonalInfo;
+}
+
+export interface PersonalInfo {
+  interests: any[];
+}
+
+export interface Token {
   deviceId: any;
   refreshToken: string;
 }

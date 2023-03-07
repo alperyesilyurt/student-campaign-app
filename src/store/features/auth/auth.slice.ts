@@ -9,7 +9,8 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { AuthState, FormStepValues, StudentFormSteps } from "./auth.interface";
-import { sanitizeStudentInfo } from "@/common/utils";
+import { sanitizeStudentInfo } from "@/common/utils/utils";
+import { saveTokenToStorage } from "@/common/utils/storage";
 
 const initialState: AuthState = {
   isLoggedIn: false,
@@ -37,6 +38,12 @@ const initialState: AuthState = {
   step: 0,
 };
 
+// create a selector for the slice that chekcs if user is logged in
+export const selectIsLoggedIn = createSelector(
+  (state: RootState) => state.auth,
+  (auth: AuthState) => auth.user && auth.accesToken,
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -45,7 +52,10 @@ export const authSlice = createSlice({
       state.user = action.payload;
     },
     setToken(state: AuthState, action: PayloadAction<AuthState["accesToken"]>) {
-      console.log("action.payload", action.payload);
+      console.log(
+        "🚀 ~ file: auth.slice.ts:48 ~ setToken ~ setToken:",
+        action.payload,
+      );
       state.accesToken = action.payload;
     },
     setIsStudentRegisterSuccess(
@@ -132,15 +142,30 @@ export const registerThunk = createAsyncThunk(
     } catch (error) {}
   },
 );
+
 export const loginThunk = createAsyncThunk(
   "auth/login",
   async (value: LoginFormSchemaType, thunkAPI) => {
     try {
       const response = await services.login(value);
       thunkAPI.dispatch(setToken(response?.data.accessToken));
-      const currentUser = await services.getCurrentUser(
-        response?.data.accessToken,
-      );
+      saveTokenToStorage(response.data.accessToken);
+      const currentUser = await services.getCurrentUser();
+      thunkAPI.dispatch(setUser(currentUser));
+    } catch (error) {}
+  },
+);
+
+export const getCurrentUserThunk = createAsyncThunk(
+  "auth/getMe",
+  async (_value, thunkAPI) => {
+    const currentStore = thunkAPI.getState() as { auth: AuthState };
+
+    if (!currentStore.auth.accesToken) {
+      return;
+    }
+    try {
+      const currentUser = await services.getCurrentUser();
       thunkAPI.dispatch(setUser(currentUser));
     } catch (error) {}
   },

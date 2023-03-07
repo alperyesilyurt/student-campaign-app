@@ -1,5 +1,5 @@
 import { useGetAllCampaigns } from "@/common/hooks/campaigns";
-import CampaignCard from "@/components/CampaignCard";
+import CampaignCard from "@/components/PageSpecific/Campaign/CampaignCard";
 import CampaignSkeletonList from "@/components/skeletons/CampaignSkeleton";
 import styled from "styled-components";
 

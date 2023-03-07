@@ -152,7 +152,7 @@ export default function ContactForm(props: Props) {
 
       <Button
         mt={"6"}
-        colorScheme="purple"
+        colorScheme="green"
         size="lg"
         type="submit"
         isLoading={isLoading}

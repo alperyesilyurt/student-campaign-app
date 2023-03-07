@@ -20,10 +20,12 @@ import { useNavigate } from "react-router-dom";
 import { IllustrationLanding } from "@/components/PageSpecific/LandingPage/IllustrationLanding";
 import Testimonials from "@/components/PageSpecific/LandingPage/Testimonials";
 import { fontFamilies } from "@/common/constants";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
   const [replay, setReplay] = useState(true);
   const [textIndex, setTextIndex] = useState(0);
+  const { t } = useTranslation();
   // Placeholder text data, as if from API
   const navigation = useNavigate();
 
@@ -99,8 +101,7 @@ export default function Home() {
                 mb={4}
                 color="gray.700"
               >
-                Application: where all discount opportunities for students are
-                together
+                {t("landing.title")}
               </Heading>
 
               <Text fontSize="xl" color="gray.500">

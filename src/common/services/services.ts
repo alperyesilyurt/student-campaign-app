@@ -1,4 +1,4 @@
-import { Campaign } from "@/components/CampaignCard";
+import { Campaign } from "@/components/PageSpecific/Campaign/CampaignCard";
 import { LoginFormSchemaType } from "@/components/forms/auth/LoginForm";
 import { RegisterFormSchemaType } from "@/components/forms/auth/RegisterForm";
 import { ContactFormSchema } from "@/components/forms/contact/ContactForm";
@@ -7,6 +7,7 @@ import { Category } from "@/store/features/campaigns/campaign.interface";
 
 import { ENDPOINTS } from "../constants/constants";
 import HttpClient from "./HttpClient";
+import { CampaignResponse } from "../types/campaign.interface";
 
 export const services = {
   getAllCampaigns: async (query: string) => {
@@ -21,6 +22,12 @@ export const services = {
     );
     return response.data;
   },
+  getCampaignWithCodeByID: async (id: string) => {
+    const response = await HttpClient.get<CampaignResponse>(
+      `${ENDPOINTS.campaigns}/with-code/${id}`,
+    );
+    return response.data;
+  },
   getFeaturedCampaigns: async () => {
     const response = await HttpClient.get<Campaign[]>(
       ENDPOINTS.campaignsFeatured,
@@ -28,26 +35,20 @@ export const services = {
     return response.data;
   },
   login: async (loginForm: LoginFormSchemaType) => {
-    const response = HttpClient.post(ENDPOINTS.auth.login, loginForm);
+    const response = HttpClient.post<{
+      accessToken: string;
+      refreshToken: string;
+    }>(ENDPOINTS.auth.login, loginForm);
     return response;
   },
-  getCurrentUser: async (accessToken: string) => {
-    const response = await HttpClient.get<User>(ENDPOINTS.auth.me, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+  getCurrentUser: async () => {
+    const response = await HttpClient.get<User>(ENDPOINTS.auth.me);
     return response.data;
   },
-  updateStudentInfo: async (studentInfo: any, accessToken: string) => {
+  updateStudentInfo: async (studentInfo: any) => {
     const response = HttpClient.patch(
       ENDPOINTS.auth.updateStudent,
       studentInfo,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
     );
     return response;
   },

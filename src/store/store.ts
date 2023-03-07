@@ -1,10 +1,14 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, createListenerMiddleware } from "@reduxjs/toolkit";
 import {
   companyReducers,
   authReducer,
   universityReducer,
   campaignReducer,
-} from "./features";
+  setToken,
+} from "@/store/features";
+import { addTokenToHeader } from "@/common/services/HttpClient";
+
+const listenerMiddleware = createListenerMiddleware();
 
 export const store = configureStore({
   reducer: {
@@ -12,12 +16,20 @@ export const store = configureStore({
     auth: authReducer,
     university: universityReducer,
     campaign: campaignReducer,
-    // Add the generated reducer as a specific top-level slice
-    // [counterApi.reducerPath]: counterApi.reducer,
   },
-  // Add the generated middleware to the store
-  // middleware: (getDefaultMiddleware) =>
-  //     getDefaultMiddleware().concat(counterApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().prepend(listenerMiddleware.middleware),
+});
+
+listenerMiddleware.startListening({
+  actionCreator: setToken,
+  effect: async (action, listenerApi) => {
+    const token = action.payload!;
+    if (token) {
+      console.log("🚀 ~ file: store.ts:29 ~ effect: ~ token:", token);
+      addTokenToHeader(token);
+    }
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

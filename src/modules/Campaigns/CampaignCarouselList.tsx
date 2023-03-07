@@ -1,5 +1,5 @@
 import { useGetAllCampaigns } from "@/common/hooks/campaigns";
-import CampaignCarousel from "@/components/CampaignCarousel";
+import CampaignCarousel from "@/components/PageSpecific/Campaign/CampaignCarousel";
 import { Box, Button, Icon, Skeleton } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 

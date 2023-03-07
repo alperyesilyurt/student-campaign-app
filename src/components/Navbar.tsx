@@ -2,10 +2,18 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import UniLifeLogo from "./icons/UniLifeLogo";
-import { useMediaQuery, useDisclosure, Icon } from "@chakra-ui/react";
-import Button from "./styled/button/Button";
+import {
+  useMediaQuery,
+  useDisclosure,
+  Icon,
+  Center,
+  Button,
+} from "@chakra-ui/react";
 import { Sidebar } from "./Sidebar";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useAppSelector } from "@/store/hooks";
+import { shallowEqual } from "react-redux";
+import { removeTokenFromStorage } from "@/common/utils/storage";
 
 type Props = {};
 
@@ -57,7 +65,7 @@ const linkStyleLogin = {
 export default function Navbar({}: Props) {
   const location = useLocation();
   const disclosure = useDisclosure();
-
+  const user = useAppSelector((state) => state.auth.user, shallowEqual);
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
   const { t } = useTranslation();
@@ -79,16 +87,8 @@ export default function Navbar({}: Props) {
           </Link>
         </Menu>
       )}
-      {isLargerThan768 && (
-        <Actions>
-          <Link style={linkStyleLogin} to="/auth/login">
-            {t("navbar.login")}
-          </Link>
-          <Link style={linkStyle} to="/auth/register">
-            {t("navbar.register")}
-          </Link>
-        </Actions>
-      )}
+      {isLargerThan768 && <NavbarAuth />}
+
       {!isLargerThan768 && (
         <Actions>
           <Icon
@@ -105,3 +105,37 @@ export default function Navbar({}: Props) {
     </NavbarWrapper>
   );
 }
+
+const NavbarAuth = () => {
+  const user = useAppSelector((state) => state.auth.user, shallowEqual);
+  const { t } = useTranslation();
+
+  const logout = () => {
+    removeTokenFromStorage();
+    window.location.reload();
+  };
+
+  if (user) {
+    return (
+      <Actions>
+        <Center bg={"gray.200"} w={6} h={6} p={6} rounded={"full"}>
+          {user.name[0].toUpperCase() + user.surname[0].toUpperCase()}
+        </Center>
+        <Button onClick={logout} variant={"ghost"}>
+          Logout
+        </Button>
+      </Actions>
+    );
+  }
+
+  return (
+    <Actions>
+      <Link style={linkStyleLogin} to="/auth/login">
+        {t("navbar.login")}
+      </Link>
+      <Link style={linkStyle} to="/auth/register">
+        {t("navbar.register")}
+      </Link>
+    </Actions>
+  );
+};

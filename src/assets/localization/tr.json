@@ -1,11 +1,44 @@
 {
   "hello": "hello world",
-  "loading" : "Yükleniyor",
-  "companies" :"Markalar",
+  "loading": "Yükleniyor",
+  "companies": "Markalar",
   "navbar": {
     "home": "Ana Sayfa",
     "companies": "Markalar",
     "campaigns": "Kampanyalar",
-    "auth": "Giriş Yap / Kaydol"
+    "auth": "Giriş Yap / Kaydol",
+    "login": "Giriş yap",
+    "register": "Kaydol",
+    "contact": "İletişim"
+  },
+  "forms": {
+    "loginForm": {
+      "login": "Login",
+      "toast": {
+        "errorTitle": "Couldnt login",
+        "errorDescription": "Please check your credentials and try again",
+        "successTitle": "Login successful",
+        "successDescription": "You are now logged in"
+      }
+    },
+    "registerForm": {
+      "register": "Register"
+    },
+    "forgotPasswordForm": {
+      "recover": "Recover password"
+    },
+    "contactForm": {
+      "contact": "Contact",
+      "toast": {
+        "errorTitle": "Couldnt send message",
+        "errorDescription": "Please check your credentials and try again",
+        "successTitle": "Message sent",
+        "successDescription": "Your message has been sent"
+      }
+    }
+  },
+  "landing": {
+    "title": "Universite ogrencilerinin bir arada indirimlerle bulustugu uygulama: unilife",
+    "description": "This is the description of the landing page"
   }
 }

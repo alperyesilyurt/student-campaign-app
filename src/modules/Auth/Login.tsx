@@ -4,7 +4,10 @@ import LoginForm from "@/components/forms/auth/LoginForm";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { AuthLayout } from "@/layouts/AuthLayout";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@/store/hooks";
+import { getCurrentUserThunk, setToken } from "@/store/features";
+import { saveTokenToStorage } from "@/common/utils/storage";
 
 const schema = z.object({
   email: z.string().email().min(2),
@@ -13,19 +16,41 @@ const schema = z.object({
 export type LoginFormSchemaType = z.infer<typeof schema>;
 
 export default function Login() {
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const loginResponse = useMutation(services.login);
+  const loginMutation = useMutation(services.login);
   const toast = useToast();
+  const navigate = useNavigate();
   const loginHandler = async (data: LoginFormSchemaType) => {
-    // const response = await services.login(data);
-    loginResponse.mutate(data);
-
-    /* TODO: Implement a saving token caching and fetching mechanism */
-    // const { user, token } = response?.data;
-    // saveTokenToStorage(token);
+    loginMutation.mutate(data, {
+      onSuccess: (data) => {
+        dispatch(setToken(data.data.accessToken));
+        dispatch(getCurrentUserThunk());
+        saveTokenToStorage(data.data.accessToken);
+        toast({
+          title: t("forms.loginForm.toast.successTitle"),
+          description: t("forms.loginForm.toast.successDescription"),
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+          position: "top",
+        });
+        navigate("/campaigns");
+      },
+      onError: (error) => {
+        toast({
+          title: t("forms.loginForm.toast.errorTitle"),
+          description: t("forms.loginForm.toast.errorDescription"),
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+          position: "top",
+        });
+      },
+    });
   };
 
-  if (loginResponse.isError) {
+  if (loginMutation.isError) {
     toast({
       title: t("forms.loginForm.toast.errorTitle"),
       description: t("forms.loginForm.toast.errorDescription"),
@@ -35,21 +60,13 @@ export default function Login() {
       position: "top",
     });
   }
-  if (loginResponse.isSuccess) {
-    toast({
-      title: t("forms.loginForm.toast.successTitle"),
-      description: t("forms.loginForm.toast.successDescription"),
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-      position: "top",
-    });
+  if (loginMutation.isSuccess) {
   }
 
   return (
     <LoginForm
       handleLogin={loginHandler}
-      isSubmitting={loginResponse.isLoading}
+      isSubmitting={loginMutation.isLoading}
     ></LoginForm>
   );
 }

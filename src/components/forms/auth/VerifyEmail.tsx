@@ -20,7 +20,7 @@ import { useSelector } from "react-redux";
 import { selectRegistirationDate } from "@/store/features";
 import { useCountdown } from "@/common/hooks/use-countdownt";
 import { add } from "date-fns";
-import { formatMinutesAndSeconds } from "@/common/utils";
+import { formatMinutesAndSeconds } from "@/common/utils/utils";
 import { motion } from "framer-motion";
 
 const schema = z.object({

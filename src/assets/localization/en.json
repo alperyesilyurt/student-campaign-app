@@ -36,5 +36,9 @@
         "successDescription": "Your message has been sent"
       }
     }
+  },
+  "landing": {
+    "title": "Application: where all discount opportunities for students are together",
+    "description": "This is the description of the landing page"
   }
 }

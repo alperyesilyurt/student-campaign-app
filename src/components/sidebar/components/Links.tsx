@@ -16,9 +16,7 @@ import {
   ListItem,
   useColorModeValue,
 } from "@chakra-ui/react";
-// Assets
 import { FaCircle } from "react-icons/fa";
-import NavLink from "components/link/NavLink";
 import { PropsWithChildren } from "react";
 import { IRoute } from "@/common/constants/routes";
 

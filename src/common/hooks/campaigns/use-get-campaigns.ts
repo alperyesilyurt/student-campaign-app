@@ -1,7 +1,7 @@
-import { Campaign } from "@/components/CampaignCard";
+import { Campaign } from "@/components/PageSpecific/Campaign/CampaignCard";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { services } from "@/common/services/services";
-import { queryStringBuild } from "@/common/utils";
+import { queryStringBuild } from "@/common/utils/utils";
 
 type Params = {
   category?: string;

@@ -11,10 +11,19 @@ import { CompanyLogin } from "./modules/Companies/CompanyLogin";
 import { CompanyRegister } from "./modules/Companies/CompanyRegister";
 import Contact from "./modules/Contacts";
 import Home from "./modules/Home";
-import { fetchUniversities, getCategoriesThunk } from "./store/features";
+import {
+  fetchUniversities,
+  getCategoriesThunk,
+  getCurrentUserThunk,
+  setToken,
+} from "./store/features";
 import { useAppDispatch } from "./store/hooks";
 import DashboardOutlet from "./modules/Dashboard/DashboardOutlet";
 import DashboardHomeStudentView from "./modules/Dashboard/DashboardHomeStudentView";
+import {
+  getTokenFromStorage,
+  removeTokenFromStorage,
+} from "@/common/utils/storage";
 
 type Props = {};
 
@@ -24,6 +33,14 @@ export function NavigationRoutes({}: Props) {
   useEffect(() => {
     dispatch(fetchUniversities());
     dispatch(getCategoriesThunk());
+    const token = getTokenFromStorage();
+    if (token && token.length > 11) {
+      dispatch(setToken(token));
+      dispatch(getCurrentUserThunk());
+    } else {
+      console.log("token yok");
+      removeTokenFromStorage();
+    }
   }, []);
 
   return (

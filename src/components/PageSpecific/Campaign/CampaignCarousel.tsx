@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { fontFamilies } from "./styled/constants";
-import * as colors from "./styled/colors";
+import { fontFamilies } from "@/components/styled/constants";
+import * as colors from "@/components/styled/colors";
 import { Campaign } from "./CampaignCard";
 
 type Props = {

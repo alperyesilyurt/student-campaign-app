@@ -1,6 +1,6 @@
 import React, { lazy } from "react";
 import styled from "styled-components";
-import Button from "./styled/button/Button";
+import Button from "../../styled/button/Button";
 import {
   fontWeights,
   boxSizes,
@@ -8,8 +8,8 @@ import {
   spacings,
   borderRadiusSizes,
   maxWidth,
-} from "./styled/constants";
-import * as colors from "./styled/colors";
+} from "../../styled/constants";
+import * as colors from "../../styled/colors";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useNavigate } from "react-router-dom";

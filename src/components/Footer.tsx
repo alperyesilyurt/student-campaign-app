@@ -9,14 +9,9 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import UniLifeLogo_2 from "./icons/UniLifeLogo_2";
-import {
-  IoLogoFacebook,
-  IoLogoInstagram,
-  IoLogoYoutube,
-} from "react-icons/io";
+import { IoLogoFacebook, IoLogoInstagram, IoLogoYoutube } from "react-icons/io";
 
 type Props = {};
-
 
 const discoverCampaigns = [
   {
