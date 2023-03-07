@@ -50,18 +50,6 @@ const Actions = styled.div`
   align-items: center;
 `;
 
-const linkStyle = {
-  textDecoration: "none",
-  color: "#3D3D3D",
-};
-const linkStyleLogin = {
-  textDecoration: "none",
-  color: "#3D3D3D",
-  border: "2.5px solid #7CF2B8",
-  borderRadius: "10px",
-  padding: "16px 46px",
-};
-
 export default function Navbar({}: Props) {
   const location = useLocation();
   const disclosure = useDisclosure();
@@ -71,19 +59,19 @@ export default function Navbar({}: Props) {
   const { t } = useTranslation();
   return (
     <NavbarWrapper className={isLargerThan768 ? "" : "mobile"}>
-      <Link style={linkStyle} to="/">
+      <Link to="/">
         <UniLifeLogo height="70px" />
       </Link>
       {isLargerThan768 && (
         <Menu>
-          <Link style={linkStyle} to="/">
-            {t("navbar.home")}
+          <Link to="/">
+            <Button variant="ghost">{t("navbar.home")}</Button>
           </Link>
-          <Link style={linkStyle} to="/contact">
-            {t("navbar.contact")}
+          <Link to="/contact">
+            <Button variant="ghost">{t("navbar.contact")}</Button>
           </Link>
-          <Link style={linkStyle} to="/campaigns">
-            {t("navbar.campaigns")}
+          <Link to="/campaigns">
+            <Button variant="ghost">{t("navbar.campaigns")}</Button>
           </Link>
         </Menu>
       )}
@@ -130,12 +118,8 @@ const NavbarAuth = () => {
 
   return (
     <Actions>
-      <Link style={linkStyleLogin} to="/auth/login">
-        {t("navbar.login")}
-      </Link>
-      <Link style={linkStyle} to="/auth/register">
-        {t("navbar.register")}
-      </Link>
+      <Link to="/auth/login">{t("navbar.login")}</Link>
+      <Link to="/auth/register">{t("navbar.register")}</Link>
     </Actions>
   );
 };

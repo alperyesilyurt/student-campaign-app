@@ -8,4 +8,17 @@ const colors = {
   },
 };
 
+const buttonVariants = {
+  variants: {
+    linkStyleLogin: {
+      textDecoration: "none",
+      color: "#3D3D3D",
+      border: "2.5px solid #7CF2B8",
+      borderRadius: "10px",
+      padding: "16px 46px",
+    },
+  },
+};
+
 export const theme = extendTheme({ colors });
+export const buttonTheme = extendTheme({ buttonVariants });
