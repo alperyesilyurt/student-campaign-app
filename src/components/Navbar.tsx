@@ -8,12 +8,21 @@ import {
   Icon,
   Center,
   Button,
+  Flex,
+  MenuItem,
+  MenuList,
+  Text,
+  Menu,
+  useColorModeValue,
+  MenuButton,
+  Avatar,
 } from "@chakra-ui/react";
 import { Sidebar } from "./Sidebar";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useAppSelector } from "@/store/hooks";
 import { shallowEqual } from "react-redux";
 import { removeTokenFromStorage } from "@/common/utils/storage";
+import { MdAccountCircle, MdInfoOutline } from "react-icons/md";
 
 type Props = {};
 
@@ -37,11 +46,6 @@ const NavbarWrapper = styled.div`
     padding: 0.8em 2.8em;
     justify-content: space-between;
   }
-`;
-
-const Menu = styled.div`
-  display: flex;
-  gap: 2.5em;
 `;
 
 const Actions = styled.div`
@@ -100,7 +104,17 @@ export default function Navbar({}: Props) {
 const NavbarAuth = () => {
   const user = useAppSelector((state) => state.auth.user, shallowEqual);
   const { t } = useTranslation();
+  // Chakra Color Mode
+  let menuBg = useColorModeValue("white", "navy.800");
+  const textColor = useColorModeValue("secondaryGray.900", "white");
 
+  const borderColor = useColorModeValue("#E6ECFA", "rgba(135, 140, 189, 0.3)");
+  const navbarIcon = useColorModeValue("gray.400", "white");
+
+  const shadow = useColorModeValue(
+    "14px 17px 40px 4px rgba(112, 144, 176, 0.18)",
+    "14px 17px 40px 4px rgba(112, 144, 176, 0.06)",
+  );
   const logout = () => {
     removeTokenFromStorage();
     window.location.reload();
@@ -123,6 +137,71 @@ const NavbarAuth = () => {
     <Actions>
       <Link to="/auth/login">{t("navbar.login")}</Link>
       <Link to="/auth/register">{t("navbar.register")}</Link>
+      <Menu>
+        <MenuButton p="0px">
+          <Avatar
+            _hover={{ cursor: "pointer" }}
+            color="white"
+            name="Adela Parkson"
+            bg="#38e781"
+            textColor={"black"}
+            size="sm"
+            w="40px"
+            h="40px"
+          />
+        </MenuButton>
+        <MenuList
+          boxShadow={shadow}
+          p="0px"
+          mt="6px"
+          borderRadius="20px"
+          bg={menuBg}
+          border="none"
+        >
+          <Flex w="100%" mb="0px">
+            <Text
+              ps="20px"
+              pt="16px"
+              pb="10px"
+              w="100%"
+              borderBottom="1px solid"
+              borderColor={borderColor}
+              fontSize="sm"
+              fontWeight="700"
+              color={textColor}
+            >
+              👋&nbsp; Hey, Adela
+            </Text>
+          </Flex>
+          <Flex flexDirection="column" p="10px">
+            <MenuItem
+              _hover={{ bg: "none" }}
+              _focus={{ bg: "none" }}
+              borderRadius="8px"
+              px="14px"
+            >
+              <Text fontSize="sm">Profile Settings</Text>
+            </MenuItem>
+            <MenuItem
+              _hover={{ bg: "none" }}
+              _focus={{ bg: "none" }}
+              borderRadius="8px"
+              px="14px"
+            >
+              <Text fontSize="sm">Newsletter Settings</Text>
+            </MenuItem>
+            <MenuItem
+              _hover={{ bg: "none" }}
+              _focus={{ bg: "none" }}
+              color="red.400"
+              borderRadius="8px"
+              px="14px"
+            >
+              <Text fontSize="sm">Log out</Text>
+            </MenuItem>
+          </Flex>
+        </MenuList>
+      </Menu>
     </Actions>
   );
 };

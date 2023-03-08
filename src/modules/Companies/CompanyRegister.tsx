@@ -44,12 +44,16 @@ export const CompanyRegister = () => {
         navigate("/dashboard/company");
         toast({
           title: "Hoş geldin",
+          status: "success",
+          position: "top",
           description: "Şirket bilgilerini ekleyerek başlayabilirsin.",
         });
       },
       onError: (error) => {
         toast({
           title: "Kayıt olunamadı",
+          position: "top",
+          status: "error",
           description: "Lütfen bilgilerinizi kontrol edin.",
         });
       },

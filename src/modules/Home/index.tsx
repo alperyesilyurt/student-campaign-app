@@ -105,8 +105,11 @@ export default function Home() {
               </Heading>
 
               <Text fontSize="xl" color="gray.500">
-                Freelancers use Biller to accept payments and send invoices to
-                clients with a single click
+                Unilife ile öğrenciler, kampüslerindeki etkinlikleri takip
+                edebilir, bölgesel indirimlerden yararlanabilir ve diğer
+                öğrencilerle etkileşimde bulunabilirler. Unilife, öğrencilerin
+                üniversite yaşamlarını daha da unutulmaz kılmak için
+                tasarlanmıştır.
               </Text>
 
               <Text my={2} fontSize="sm" color="gray.500">
