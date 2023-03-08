@@ -13,16 +13,7 @@ import * as colors from "../../styled/colors";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useNavigate } from "react-router-dom";
-
-export type Campaign = {
-  _id: string;
-  name?: string;
-  description?: string;
-  campaignHeroImage: string;
-  campaignImages?: string[];
-  company: { name: string; logo: string };
-  validUntil: string;
-};
+import { Campaign } from "@/common/types/campaign.interface";
 
 type Props = {
   campaign: Campaign;

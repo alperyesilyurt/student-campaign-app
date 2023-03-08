@@ -32,3 +32,13 @@ export interface Company {
   isVerified: boolean;
   __v: number;
 }
+
+export type Campaign = {
+  _id: string;
+  name?: string;
+  description?: string;
+  campaignHeroImage: string;
+  campaignImages?: string[];
+  company: { name: string; logo: string };
+  validUntil: string;
+};

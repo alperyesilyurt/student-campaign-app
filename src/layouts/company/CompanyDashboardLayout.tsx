@@ -9,7 +9,7 @@ interface DefaultLayoutProps {
   children: React.ReactNode;
 }
 
-export const DashboardLayout = ({ children }: DefaultLayoutProps) => {
+export const CompanyDashboardLayout = ({ children }: DefaultLayoutProps) => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
 
   return (
@@ -43,18 +43,9 @@ export const DashboardLayout = ({ children }: DefaultLayoutProps) => {
               minH="100vh"
               pt="50px"
             >
-              {/* NAVBAR WILL BE THERE */}
+              {children}
             </Box>
           </Portal>
-          <Box
-            mx="auto"
-            p={{ base: "20px", md: "30px" }}
-            pe="20px"
-            minH="100vh"
-            pt="50px"
-          >
-            {children}
-          </Box>
         </Box>
       </SidebarContext.Provider>
     </Box>

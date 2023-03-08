@@ -24,6 +24,7 @@ import {
   getTokenFromStorage,
   removeTokenFromStorage,
 } from "@/common/utils/storage";
+import CompanyDashboardHome from "@/modules/Companies/Dashboard/CompanyDashboardHome";
 
 type Props = {};
 
@@ -63,7 +64,7 @@ export function NavigationRoutes({}: Props) {
       <Route path="/campaign/:id" element={<CampaignDetail />} />
 
       <Route path="/dashboard/company" element={<DashboardOutlet />}>
-        <Route path="home" element={<DashboardHomeStudentView />} />
+        <Route path="home" element={<CompanyDashboardHome />} />
       </Route>
 
       <Route path="/dashboard/student" element={<DashboardOutlet />}>
