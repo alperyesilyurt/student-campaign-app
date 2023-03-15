@@ -28,8 +28,8 @@ export const CampaignCarouselWrapper = styled.div`
     align-items: center;
   }
   & img.campaign-carousel-image {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 250px;
     object-fit: cover;
     border-radius: 10px;
   }

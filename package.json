@@ -39,11 +39,13 @@
     "react-icons": "^4.8.0",
     "react-lazy-load-image-component": "^1.5.6",
     "react-redux": "^8.0.5",
+    "react-responsive": "^9.0.2",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.4.2",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",
+    "swiper": "^9.1.0",
     "zod": "^3.19.1"
   },
   "devDependencies": {
