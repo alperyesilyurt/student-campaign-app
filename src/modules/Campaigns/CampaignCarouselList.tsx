@@ -19,6 +19,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
+import swiperBg from "/swiper-background.svg";
 
 /* Get those from chakra-ui */
 const breakPoints = {
@@ -65,8 +66,8 @@ const CampaignCarouselList = (props: CampaignCarouselListProps) => {
   const onBeforeInit = (Swiper: SwiperCore): void => {
     if (typeof Swiper.params.navigation !== "boolean") {
       const navigation = Swiper.params.navigation;
-      navigation.prevEl = navigationPrevRef.current;
-      navigation.nextEl = navigationNextRef.current;
+      navigation.prevEl = navigationPrevRef.current; //TO-DO: Type error
+      navigation.nextEl = navigationNextRef.current; //TO-DO: Type error
     }
   };
   const swiperRef = React.useRef(null);
@@ -89,7 +90,7 @@ const CampaignCarouselList = (props: CampaignCarouselListProps) => {
           delay: 5000,
         }}
         breakpoints={sliderBreakpoints}
-        modules={[Navigation, Pagination, EffectFade]}
+        modules={[Navigation, Pagination, EffectFade, Autoplay]}
       >
         {Array.from({ length: 3 }).map((_, index) => {
           return (
@@ -110,35 +111,40 @@ const CampaignCarouselList = (props: CampaignCarouselListProps) => {
   return (
     <div
       style={{
-        maxWidth: "95%",
+        maxWidth: "100%",
         margin: "0 auto",
         position: "relative",
-        backgroundColor: "gray",
+        backgroundImage: `url(${swiperBg})`,
+        objectFit: "contain",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          display: "flex",
-          width: "100%",
-          height: "100%",
-          justifyContent: "space-between",
-          alignItems: "center",
-          zIndex: 10,
-          //opacity: 1,
-        }}
-        // whileHover={{ opacity: 1 }}
-        //transition={{ duration: 0.3 }}
-      >
-        <Button ref={navigationPrevRef} variant={"ghost"} ml={1}>
-          <Icon as={FiChevronLeft} w="30px" h="30px" />
-        </Button>
-        <Button ref={navigationNextRef} variant={"ghost"} mr={1}>
-          <Icon as={FiChevronRight} w="30px" h="30px" />
-        </Button>
-      </div>
+      {!isMobile && (
+        <motion.div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            justifyContent: "space-between",
+            alignItems: "center",
+            zIndex: 2,
+            opacity: 0,
+          }}
+          whileHover={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Button ref={navigationPrevRef} variant={"ghost"} ml={1}>
+            <Icon as={FiChevronLeft} w="30px" h="30px" />
+          </Button>
+          <Button ref={navigationNextRef} variant={"ghost"} mr={1}>
+            <Icon as={FiChevronRight} w="30px" h="30px" />
+          </Button>
+        </motion.div>
+      )}
       {
         <Swiper
           style={{ padding: "3% 3%" }}
@@ -156,7 +162,7 @@ const CampaignCarouselList = (props: CampaignCarouselListProps) => {
             delay: 5000,
           }}
           breakpoints={sliderBreakpoints}
-          modules={[Navigation, Pagination, EffectFade]}
+          modules={[Navigation, Pagination, EffectFade, Autoplay]}
         >
           {featuredCampaigns.isFetched ? (
             featuredCampaigns.data?.map((campaignCarousel) => {
