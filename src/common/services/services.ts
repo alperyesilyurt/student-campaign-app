@@ -1,10 +1,11 @@
-import { Campaign } from "@/components/PageSpecific/Campaign/CampaignCard";
 import { LoginFormSchemaType } from "@/components/forms/auth/LoginForm";
 import { RegisterFormSchemaType } from "@/components/forms/auth/RegisterForm";
 import { ContactFormSchema } from "@/components/forms/contact/ContactForm";
 import { University, User } from "@/store/features";
-import { Category } from "@/store/features/campaigns/campaign.interface";
-
+import {
+  Campaign,
+  Category,
+} from "@/store/features/campaigns/campaign.interface";
 import { ENDPOINTS } from "../constants/constants";
 import HttpClient from "./HttpClient";
 import { CampaignResponse } from "../types/campaign.interface";
@@ -13,6 +14,12 @@ export const services = {
   getAllCampaigns: async (query: string) => {
     const response = await HttpClient.get<Campaign[]>(
       ENDPOINTS.campaigns + "?" + query,
+    );
+    return response.data;
+  },
+  getMyCompanysCampaigns: async (query: string) => {
+    const response = await HttpClient.get<Campaign[]>(
+      ENDPOINTS.myCampaigns + "?" + query,
     );
     return response.data;
   },

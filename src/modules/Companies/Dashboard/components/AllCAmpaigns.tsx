@@ -1,24 +1,31 @@
-import { useGetAllCampaigns } from "@/common/hooks/campaigns";
-import { CompanyBanner } from "@/components/card/CompanyBanner";
+import { useGetAllCategories } from "@/common/hooks/campaigns";
+import { useGetMyAllCampaigns } from "@/common/hooks/campaigns/use-get-my-campaigns";
+import { CategoryList } from "@/modules/Campaigns";
 import AdminCampaignCard from "@/modules/Dashboard/AdminCampaignCard";
 import {
   Flex,
   Grid,
   useColorModeValue,
   Text,
-  Link,
   SimpleGrid,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 type Props = {};
 
 function AllCAmpaigns({}: Props) {
   const [categoryId, setCategoryId] = useState(() => "all");
   const [pageParam, setPageParam] = useState(0);
-  const campaigns = useGetAllCampaigns({ category: categoryId, pageParam });
+  const campaigns = useGetMyAllCampaigns({ category: categoryId, pageParam });
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const textColorBrand = useColorModeValue("brand.500", "white");
+
+  const filterCatefories = (categoryID: string) => {
+    setCategoryId(categoryID);
+    campaigns.refetch();
+  };
+
+  const categories = useGetAllCategories();
 
   return (
     <Flex direction="column">
@@ -32,40 +39,17 @@ function AllCAmpaigns({}: Props) {
         <Text color={textColor} fontSize="2xl" ms="24px" fontWeight="700">
           Bütün Kampanyalar
         </Text>
-        <Flex
-          align="center"
-          me="20px"
-          ms={{ base: "24px", md: "0px" }}
-          mt={{ base: "20px", md: "0px" }}
-        >
-          <Link
-            color={textColorBrand}
-            fontWeight="500"
-            me={{ base: "34px", md: "44px" }}
-            href="#art"
-          >
-            Aktif
-          </Link>
-          <Link
-            color={textColorBrand}
-            fontWeight="500"
-            me={{ base: "34px", md: "44px" }}
-            href="#music"
-          >
-            Tümü
-          </Link>
-          <Link
-            color={textColorBrand}
-            fontWeight="500"
-            me={{ base: "34px", md: "44px" }}
-            href="#collectibles"
-          >
-            Eğlence
-          </Link>
-          <Link color={textColorBrand} fontWeight="500" href="#sports">
-            Spor
-          </Link>
-        </Flex>
+      </Flex>
+      <Flex
+        align="center"
+        me="20px"
+        ms={{ base: "24px", md: "0px" }}
+        mt={{ base: "20px", md: "0px" }}
+      >
+        <CategoryList
+          categories={categories}
+          handleCategoryClick={filterCatefories}
+        />
       </Flex>
       <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
         {campaigns.isSuccess &&

@@ -41,7 +41,7 @@ export const CompanyRegister = () => {
             password: data.password,
           }),
         );
-        navigate("/dashboard/company");
+        navigate("/dashboard/company/home");
         toast({
           title: "Hoş geldin",
           status: "success",

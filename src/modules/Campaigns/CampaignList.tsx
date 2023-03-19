@@ -27,7 +27,7 @@ const CampaignsList = (props: CampaignListProps) => {
         return (
           <CampaignCard
             campaign={campaign}
-            key={campaign.company.name + index}
+            key={campaign?.company?.name + index}
           />
         );
       })}
