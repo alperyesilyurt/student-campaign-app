@@ -3,32 +3,18 @@ import CampaignCarousel from "@/components/PageSpecific/Campaign/CampaignCarouse
 import { Box, Button, Icon, Skeleton } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 
-import React, { useEffect, useState, useRef } from "react";
+import React from "react";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 
 import { motion } from "framer-motion";
-import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, {
-  Pagination,
-  Navigation,
-  Autoplay,
-  EffectFade,
-} from "swiper";
+import SwiperCore, { Pagination, Navigation, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
-import swiperBg from "/swiper-background.svg";
-
-/* Get those from chakra-ui */
-const breakPoints = {
-  xs: 0,
-  sm: 600,
-  md: 900,
-  lg: 1200,
-  xl: 1536,
-};
+import swiperBg from "@/assets/img/swiper-background.svg";
 
 type CampaignCarouselListProps = {
   featuredCampaigns: ReturnType<typeof useGetAllCampaigns>;
@@ -39,13 +25,10 @@ SwiperCore.use([Navigation]);
 const CampaignCarouselList = (props: CampaignCarouselListProps) => {
   const { t } = useTranslation();
   const { featuredCampaigns } = props;
-  //SwiperCore.use([Navigation]);
-  const navigationPrevRef = React.useRef<HTMLElement>(null);
-  const navigationNextRef = React.useRef<HTMLElement>(null);
-  //const swiperRef = useRef<typeof SwiperType>();
-  //const [slideEffect, setSlideEffect] = useState<"fade" | "slide">("fade");
+  const navigationPrevRef = React.useRef<HTMLButtonElement>(null);
+  const navigationNextRef = React.useRef<HTMLButtonElement>(null);
 
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   const sliderBreakpoints = {
     480: {
@@ -66,8 +49,9 @@ const CampaignCarouselList = (props: CampaignCarouselListProps) => {
   const onBeforeInit = (Swiper: SwiperCore): void => {
     if (typeof Swiper.params.navigation !== "boolean") {
       const navigation = Swiper.params.navigation;
-      navigation.prevEl = navigationPrevRef.current; //TO-DO: Type error
-      navigation.nextEl = navigationNextRef.current; //TO-DO: Type error
+      if (!navigation) return;
+      navigation.prevEl = navigationPrevRef.current;
+      navigation.nextEl = navigationNextRef.current;
     }
   };
   const swiperRef = React.useRef(null);
@@ -90,7 +74,7 @@ const CampaignCarouselList = (props: CampaignCarouselListProps) => {
           delay: 5000,
         }}
         breakpoints={sliderBreakpoints}
-        modules={[Navigation, Pagination, EffectFade, Autoplay]}
+        modules={[Navigation, Pagination, Autoplay]}
       >
         {Array.from({ length: 3 }).map((_, index) => {
           return (
@@ -162,7 +146,7 @@ const CampaignCarouselList = (props: CampaignCarouselListProps) => {
             delay: 5000,
           }}
           breakpoints={sliderBreakpoints}
-          modules={[Navigation, Pagination, EffectFade, Autoplay]}
+          modules={[Navigation, Pagination, Autoplay]}
         >
           {featuredCampaigns.isFetched ? (
             featuredCampaigns.data?.map((campaignCarousel) => {
