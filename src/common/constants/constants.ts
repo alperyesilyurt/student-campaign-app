@@ -17,6 +17,7 @@ export const ENDPOINTS = {
   categories: "v1/categories",
   contacts: "v1/contacts",
   universities: "v1/universities",
+  myCampaigns: "v1/campaigns/my-campaigns",
 };
 
 export const STORAGE_KEYS = {

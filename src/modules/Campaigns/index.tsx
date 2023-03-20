@@ -48,7 +48,7 @@ type CategoryListProps = {
   handleCategoryClick: (id: string) => void;
   selectedCategory?: Category;
 };
-const CategoryList = (props: CategoryListProps) => {
+export const CategoryList = (props: CategoryListProps) => {
   const { t } = useTranslation();
   const { categories } = props;
 

@@ -56,7 +56,8 @@ function CompanyRegisterForm(props: Props) {
       name: "bedo",
       surname: "celayir",
       email: "asd" + Math.random() + "@itu.edu.tr",
-      password: "12345678",
+      password: "123123123",
+      confirmPassword: "123123123",
     },
   });
   const [show, setShow] = React.useState(false);
