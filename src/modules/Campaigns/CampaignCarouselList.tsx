@@ -3,71 +3,79 @@ import CampaignCarousel from "@/components/PageSpecific/Campaign/CampaignCarouse
 import { Box, Button, Icon, Skeleton } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { useRef } from "react";
+import React from "react";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 
-/* Get those from chakra-ui */
-const breakPoints = {
-  xs: 0,
-  sm: 600,
-  md: 900,
-  lg: 1200,
-  xl: 1536,
-};
-
-const carouselSettings = {
-  dots: true,
-  arrows: true,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  infinite: true,
-  speed: 500,
-
-  responsive: [
-    {
-      breakpoint: breakPoints.lg,
-      settings: {
-        slidesToShow: 3,
-      },
-    },
-    {
-      breakpoint: breakPoints.md,
-      settings: {
-        slidesToShow: 2,
-      },
-    },
-    {
-      breakpoint: breakPoints.sm,
-      settings: {
-        slidesToShow: 1,
-      },
-    },
-  ],
-};
+import { motion } from "framer-motion";
+import { useMediaQuery } from "@chakra-ui/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Pagination, Navigation, Autoplay } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/effect-fade";
+import swiperBg from "@/assets/img/swiper-background.svg";
 
 type CampaignCarouselListProps = {
   featuredCampaigns: ReturnType<typeof useGetAllCampaigns>;
 };
 
+SwiperCore.use([Navigation]);
+
 const CampaignCarouselList = (props: CampaignCarouselListProps) => {
   const { t } = useTranslation();
   const { featuredCampaigns } = props;
-  const carouselRef = useRef<Slider>(null);
+  const navigationPrevRef = React.useRef<HTMLButtonElement>(null);
+  const navigationNextRef = React.useRef<HTMLButtonElement>(null);
 
-  const handlePrevious = () => {
-    carouselRef.current?.slickPrev();
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+
+  const sliderBreakpoints = {
+    480: {
+      spaceBetween: 30,
+    },
+    640: {
+      spaceBetween: 30,
+    },
+    768: {
+      spaceBetween: 30,
+    },
+    1024: {
+      spaceBetween: 40,
+      slidesPerView: 3,
+    },
   };
 
-  const handleNext = () => {
-    carouselRef.current?.slickNext();
+  const onBeforeInit = (Swiper: SwiperCore): void => {
+    if (typeof Swiper.params.navigation !== "boolean") {
+      const navigation = Swiper.params.navigation;
+      if (!navigation) return;
+      navigation.prevEl = navigationPrevRef.current;
+      navigation.nextEl = navigationNextRef.current;
+    }
   };
-
+  const swiperRef = React.useRef(null);
+  console.log(navigationPrevRef.current);
   if (featuredCampaigns.isLoading || featuredCampaigns.isError) {
     return (
-      <Slider {...carouselSettings}>
+      <Swiper
+        style={{ padding: "3% 3%" }}
+        slidesPerView={1}
+        loop={true}
+        ref={swiperRef}
+        navigation={{
+          prevEl: navigationPrevRef.current,
+          nextEl: navigationNextRef.current,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        autoplay={{
+          delay: 5000,
+        }}
+        breakpoints={sliderBreakpoints}
+        modules={[Navigation, Pagination, Autoplay]}
+      >
         {Array.from({ length: 3 }).map((_, index) => {
           return (
             <Box py={2} pt={4} key={index}>
@@ -80,44 +88,82 @@ const CampaignCarouselList = (props: CampaignCarouselListProps) => {
             </Box>
           );
         })}
-      </Slider>
+      </Swiper>
     );
   }
+
   return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative" }}>
-      <Slider ref={carouselRef} {...carouselSettings}>
-        {featuredCampaigns.isFetched ? (
-          featuredCampaigns.data?.map((campaignCarousel) => {
-            return (
-              <CampaignCarousel
-                campaignCarousel={campaignCarousel}
-                key={campaignCarousel._id}
-              />
-            );
-          })
-        ) : (
-          <h5>{t("loading")}</h5>
-        )}
-      </Slider>
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          display: "flex",
-          width: "100%",
-          height: "100%",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Button onClick={handlePrevious} variant={"ghost"} ml={-7}>
-          <Icon as={FiChevronLeft} w="30px" h="30px" />
-        </Button>
-        <Button onClick={handleNext} variant={"ghost"} mr={-7}>
-          <Icon as={FiChevronRight} w="30px" h="30px" />
-        </Button>
-      </div>
+    <div
+      style={{
+        maxWidth: "100%",
+        margin: "0 auto",
+        position: "relative",
+        backgroundImage: `url(${swiperBg})`,
+        objectFit: "contain",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {!isMobile && (
+        <motion.div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            justifyContent: "space-between",
+            alignItems: "center",
+            zIndex: 2,
+            opacity: 0,
+          }}
+          whileHover={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Button ref={navigationPrevRef} variant={"ghost"} ml={1}>
+            <Icon as={FiChevronLeft} w="30px" h="30px" />
+          </Button>
+          <Button ref={navigationNextRef} variant={"ghost"} mr={1}>
+            <Icon as={FiChevronRight} w="30px" h="30px" />
+          </Button>
+        </motion.div>
+      )}
+      {
+        <Swiper
+          style={{ padding: "3% 3%" }}
+          slidesPerView={1}
+          loop={true}
+          navigation={{
+            prevEl: navigationPrevRef.current!,
+            nextEl: navigationNextRef.current!,
+          }}
+          onBeforeInit={onBeforeInit}
+          pagination={{
+            clickable: true,
+          }}
+          autoplay={{
+            delay: 5000,
+          }}
+          breakpoints={sliderBreakpoints}
+          modules={[Navigation, Pagination, Autoplay]}
+        >
+          {featuredCampaigns.isFetched ? (
+            featuredCampaigns.data?.map((campaignCarousel) => {
+              return (
+                <SwiperSlide>
+                  <CampaignCarousel
+                    campaignCarousel={campaignCarousel}
+                    key={campaignCarousel._id}
+                  />
+                </SwiperSlide>
+              );
+            })
+          ) : (
+            <h5>{t("loading")}</h5>
+          )}
+        </Swiper>
+      }
     </div>
   );
 };
