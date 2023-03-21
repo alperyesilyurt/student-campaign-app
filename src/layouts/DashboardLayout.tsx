@@ -3,7 +3,7 @@ import React, { Fragment, useState } from "react";
 import { Box, Portal } from "@chakra-ui/react";
 import DashboardSidebar from "@/components/sidebar/DashboardSidebar";
 import { SidebarContext } from "@/common/contexts/SidebarContext";
-import routes from "@/common/constants/routes";
+import { sidebarRoutes } from "@/common/constants/routes";
 
 interface DefaultLayoutProps {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ export const DashboardLayout = ({ children }: DefaultLayoutProps) => {
           setToggleSidebar,
         }}
       >
-        <DashboardSidebar routes={routes} />
+        <DashboardSidebar routes={sidebarRoutes} />
         <Box
           float="right"
           minHeight="100vh"

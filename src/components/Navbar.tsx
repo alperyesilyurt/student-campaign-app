@@ -19,10 +19,11 @@ import {
 } from "@chakra-ui/react";
 import { Sidebar } from "./Sidebar";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { shallowEqual } from "react-redux";
 import { removeTokenFromStorage } from "@/common/utils/storage";
 import { MdAccountCircle, MdInfoOutline } from "react-icons/md";
+import { logoutThunk } from "@/store/features";
 
 type Props = {};
 
@@ -103,6 +104,7 @@ export default function Navbar({}: Props) {
 
 const NavbarAuth = () => {
   const user = useAppSelector((state) => state.auth.user, shallowEqual);
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   // Chakra Color Mode
   let menuBg = useColorModeValue("white", "navy.800");
@@ -115,9 +117,9 @@ const NavbarAuth = () => {
     "14px 17px 40px 4px rgba(112, 144, 176, 0.18)",
     "14px 17px 40px 4px rgba(112, 144, 176, 0.06)",
   );
+
   const logout = () => {
-    removeTokenFromStorage();
-    window.location.reload();
+    dispatch(logoutThunk());
   };
 
   if (user) {

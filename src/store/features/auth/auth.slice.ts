@@ -10,7 +10,10 @@ import {
 } from "@reduxjs/toolkit";
 import { AuthState, FormStepValues, StudentFormSteps } from "./auth.interface";
 import { sanitizeStudentInfo } from "@/common/utils/utils";
-import { saveTokenToStorage } from "@/common/utils/storage";
+import {
+  removeTokenFromStorage,
+  saveTokenToStorage,
+} from "@/common/utils/storage";
 
 const initialState: AuthState = {
   isLoggedIn: false,
@@ -110,6 +113,22 @@ export const selectRegisteredUserEmailDomain = createSelector(
   (state: RootState) => state.auth,
   (auth: AuthState) =>
     auth.registerSteps.studentSteps.basicInfo?.email.split("@")[1],
+);
+
+export const logoutThunk = createAsyncThunk(
+  "auth/logout",
+  async (_value, thunkAPI) => {
+    removeTokenFromStorage();
+    // delete token from data slice
+    // delete user from data slice
+
+    thunkAPI.dispatch(setUser(undefined));
+    thunkAPI.dispatch(setToken(undefined));
+
+    // redirect to home page
+
+    window.location.href = "/";
+  },
 );
 
 export const selectStepAndIsRegistering = createSelector(

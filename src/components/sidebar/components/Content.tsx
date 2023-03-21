@@ -1,11 +1,18 @@
 // chakra imports
-import { Box, Flex, Stack, useColorModeValue } from "@chakra-ui/react";
-//   Custom components
-import Links from "@/components/sidebar/components/Links";
-import { PropsWithChildren } from "react";
-import { IRoute } from "@/common/constants/routes";
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
-// FUNCTIONS
+import { PropsWithChildren } from "react";
+import { IRoute, SidebarRoute, sidebarRoutes } from "@/common/constants/routes";
+import { useNavigate } from "react-router-dom";
+import CurrentUserAvatar from "./CurrentUserAvatar";
 
 interface SidebarContent extends PropsWithChildren {
   routes: IRoute[];
@@ -14,20 +21,20 @@ interface SidebarContent extends PropsWithChildren {
 function SidebarContent(props: SidebarContent) {
   const { routes } = props;
   const textColor = useColorModeValue("navy.700", "white");
-  // SIDEBAR
   return (
     <Flex direction="column" height="100%" pt="25px" borderRadius="30px">
       {/* <Brand /> */}
       <Stack direction="column" mb="auto" mt="8px">
         <Box ps="20px" pe={{ md: "16px", "2xl": "1px" }}>
-          <Links routes={routes} />
+          {/* <Links routes={routes} /> */}
+          <SideBarLinks routes={routes} />
         </Box>
       </Stack>
 
       <Box
-        // ps="20px"
-        // pe={{ md: '16px', '2xl': '0px' }}
-        // borderRadius="30px"
+        /*         ps="20px"
+        pe={{ md: "16px", "2xl": "0px" }}
+        borderRadius="30px" */
         mt="60px"
         width={"100%"}
         display={"flex"}
@@ -35,19 +42,72 @@ function SidebarContent(props: SidebarContent) {
       >
         {/* <SidebarCard /> */}
       </Box>
-      {/*       <Flex mt="75px" mb="56px" justifyContent="center" alignItems="center">
-        <NextAvatar h="48px" w="48px" src={avatar4} me="20px" />
-        <Box>
-          <Text color={textColor} fontSize="md" fontWeight="700">
-            Adela Parkson
-          </Text>
-          <Text color="secondaryGray.600" fontSize="sm" fontWeight="400">
-            Product Designer
-          </Text>
-        </Box>
-      </Flex> */}
+      <CurrentUserAvatar />
     </Flex>
   );
 }
 
 export default SidebarContent;
+
+type SidebarLinkProps = {
+  routes: SidebarRoute[];
+};
+
+const SideBarLinks = (props: SidebarLinkProps) => {
+  const { routes } = props;
+  const activeRoute = (routeName: string) => {
+    return location.pathname.includes(routeName);
+  };
+
+  let activeIcon = useColorModeValue("brand.500", "white");
+  let activeColor = useColorModeValue("gray.700", "white");
+  let inactiveColor = useColorModeValue(
+    "secondaryGray.600",
+    "secondaryGray.600",
+  );
+  const navigate = useNavigate();
+  return (
+    <>
+      {routes.map((route, key) => {
+        return (
+          <HStack
+            mb="6px"
+            spacing={activeRoute(route.path.toLowerCase()) ? "22px" : "26px"}
+          >
+            <Button
+              onClick={() => {
+                navigate(route.path);
+              }}
+            >
+              <Flex w="100%" alignItems="center" justifyContent="center">
+                <Box
+                  color={
+                    activeRoute(route.path.toLowerCase())
+                      ? activeIcon
+                      : inactiveColor
+                  }
+                  me="12px"
+                  mt="6px"
+                >
+                  {route.icon}
+                </Box>
+                <Text
+                  me="auto"
+                  color={
+                    activeRoute(route.path.toLowerCase())
+                      ? activeColor
+                      : "secondaryGray.600"
+                  }
+                  fontWeight="500"
+                  fontSize="md"
+                >
+                  {route.name}
+                </Text>
+              </Flex>
+            </Button>
+          </HStack>
+        );
+      })}
+    </>
+  );
+};

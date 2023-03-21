@@ -1,8 +1,12 @@
 import { Icon } from "@chakra-ui/react";
 import {
+  MdAccessibleForward,
+  MdAnalytics,
   MdDashboard,
+  MdEditRoad,
   MdHome,
   MdLock,
+  MdManageAccounts,
   MdOutlineShoppingCart,
 } from "react-icons/md";
 import { ComponentType } from "react";
@@ -19,6 +23,47 @@ export interface IRoute {
   collapse?: boolean;
   items?: IRoute[];
 }
+export type SidebarRoute = {
+  name: string;
+  path: string;
+  icon?: JSX.Element;
+};
+export const sidebarRoutes = [
+  {
+    name: "Anasayfa",
+    path: "/dashboard/company/home",
+    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+  },
+  {
+    name: "Yeni kampanya",
+    path: "/dashboard/company/new-campaign",
+    icon: (
+      <Icon
+        as={MdAccessibleForward}
+        width="20px"
+        height="20px"
+        color="inherit"
+      />
+    ),
+  },
+  {
+    name: "Unilife Takimini yonet",
+    path: "/dashboard/company/team-management",
+    icon: (
+      <Icon as={MdManageAccounts} width="20px" height="20px" color="inherit" />
+    ),
+  },
+  {
+    name: "Analitikler",
+    path: "/dashboard/company/analytics",
+    icon: <Icon as={MdAnalytics} width="20px" height="20px" color="inherit" />,
+  },
+  {
+    name: "Sirket Bilgilerini Guncelle",
+    path: "/dashboard/company/edit-company",
+    icon: <Icon as={MdEditRoad} width="20px" height="20px" color="inherit" />,
+  },
+];
 
 const routes: IRoute[] = [
   // --- Dashboards ---
