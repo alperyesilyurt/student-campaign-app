@@ -25,6 +25,7 @@ import {
   removeTokenFromStorage,
 } from "@/common/utils/storage";
 import CompanyDashboardHome from "@/modules/Companies/Dashboard/CompanyDashboardHome";
+import NotFoundPage from "@/components/404";
 
 type Props = {};
 
@@ -70,7 +71,7 @@ export function NavigationRoutes({}: Props) {
       <Route path="/dashboard/student" element={<DashboardOutlet />}>
         <Route path="home" element={<DashboardHomeStudentView />} />
       </Route>
-      <Route path="*" element={<div>404</div>} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

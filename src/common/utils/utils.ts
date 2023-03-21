@@ -27,3 +27,10 @@ export const sanitizeStudentInfo = (
 
   return result;
 };
+
+export function trimString(str: string, maxLength: number): string {
+  if (str.length > maxLength) {
+    str = str.substring(0, maxLength - 3) + "...";
+  }
+  return str;
+}
