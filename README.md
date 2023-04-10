@@ -37,3 +37,4 @@ Run dev server
 ```
 
 Enjoy 🚀
+# student-campaign-app
